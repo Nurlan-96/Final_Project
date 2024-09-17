@@ -1,5 +1,7 @@
 ﻿using FinalProject.Domain.Entities;
+using FinalProject.Domain.Entities.RoleAggregate;
 using FinalProject.Domain.Exceptions;
+using FinalProject.Infrastructure.Seed;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using SharedKernel.Domain.Seedwork;
@@ -12,9 +14,15 @@ namespace FinalProject.Infrastructure.DAL
         public DbSet<JobPost> JobPosts { get; set; }
         public DbSet<Company> Companies { get; set; }
         public DbSet<Category> Categories { get; set; }
+        public DbSet<City> Cities { get; set; }
+        public DbSet<Role> Roles { get; set; }
+        public DbSet<UserEntity> Users { get; set; }
+
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            SeedRole.SeedData(modelBuilder);
+            SeedAdmin.SeedData(modelBuilder);
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
             base.OnModelCreating(modelBuilder);
         }

@@ -7,7 +7,7 @@
         public DateTime? UpdatedDate { get; set; }
         protected BaseEntity()
         {
-            CreatedDate = DateTime.Now;
+            CreatedDate = DateTime.UtcNow;
         }
     }
 }

@@ -25,7 +25,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\User.Modules\User.Module.csproj" />
     <ProjectReference Include="..\FinalProject.Application\FinalProject.Application.csproj" />
+    <ProjectReference Include="..\FinalProject.Infrastructure.Migrations\FinalProject.Infrastructure.Migrations.csproj" />
     <ProjectReference Include="..\FinalProject.Infrastructure\FinalProject.Infrastructure.csproj" />
     <ProjectReference Include="..\FinalProject.SharedKernel.Domain\FinalProject.SharedKernel.Domain.csproj" />
   </ItemGroup>

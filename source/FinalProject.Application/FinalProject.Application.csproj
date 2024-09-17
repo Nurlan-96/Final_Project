@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="RestSharp" Version="112.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\FinalProject.Domain\FinalProject.Domain.csproj" />
     <ProjectReference Include="..\FinalProject.Infrastructure\FinalProject.Infrastructure.csproj" />
     <ProjectReference Include="..\FinalProject.SharedKernel.Domain\FinalProject.SharedKernel.Domain.csproj" />

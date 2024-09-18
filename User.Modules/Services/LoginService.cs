@@ -5,7 +5,7 @@ using FinalProject.Domain.Reporistories;
 using Identity.Module.Auth;
 using Identity.Module.Response;
 using IdentityModule.Queries;
-using System.Threading;
+using User.Module.Commands;
 
 namespace User.Module.Services
 {
@@ -21,14 +21,14 @@ namespace User.Module.Services
             ?? throw new ArgumentNullException(nameof(userRepository));
 
 
-        public async Task<JWTResponse> Login(string username, string password)
+        public async Task<JWTResponse> Login(LoginCommand request)
         {
-            var email = username.ToLower();
+            var email = request.Email.ToLower();
 
             var user = await _userQueries.FindAsync(email)
                 ?? throw new EntityNotFoundException<UserEntity>();
 
-            if (!Crypto.VerifyHashedPassword(user.PasswordHash, password))
+            if (!Crypto.VerifyHashedPassword(user.PasswordHash, request.Password))
                 throw new UnauthorizedAccessException("Invalid credentials.");
 
             (string token, DateTime expiresAt) = _userManager.GenerateJwtToken(user);

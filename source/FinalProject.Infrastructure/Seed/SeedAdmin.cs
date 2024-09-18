@@ -14,7 +14,7 @@ namespace FinalProject.Infrastructure.Seed
                 UserEntity user = new();
                 user.Id = 1;
                 user.PhoneNumber = "Test";
-                user.SetDetails("Alex Mercer", "alex@example.com");
+                user.SetDetails("Alex Mercer", "alex@example.com", "000000");
                 user.SetRole(RoleParameter.SuperAdmin.Id);
                 user.ChangePassword(Crypto.HashPassword("unrealengine2012"));
                 builder.Entity<UserEntity>().HasData(

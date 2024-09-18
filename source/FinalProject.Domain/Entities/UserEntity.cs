@@ -19,10 +19,11 @@ namespace FinalProject.Domain.Entities
             RoleId = roleId;
         }
 
-        public void SetDetails(string name, string username)
+        public void SetDetails(string name, string username, string phone)
         {
             Fullname = name;
             Email = username;
+            PhoneNumber = phone;
         }
 
         public void ChangePassword(string passwordHash)

@@ -7,10 +7,11 @@ namespace FinalProject.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class JobPostController(IJobRepository jobRepo, ILoginService loginService) : ControllerBase
+    public class JobPostController(IJobRepository jobRepo, ILoginService loginService, IRegisterService registerService) : ControllerBase
     {
         private readonly IJobRepository _jobRepository = jobRepo;
         private readonly ILoginService _loginService = loginService;
+        private readonly IRegisterService _registerService = registerService;
 
         [HttpGet]
         public async Task<IActionResult> GetAll()
@@ -21,7 +22,13 @@ namespace FinalProject.API.Controllers
         [HttpPost]
         public async Task<IActionResult> Login([FromBody] LoginCommand command)
         {
-            return Ok(await _loginService.Login(command.Email, command.Password));
+            return Ok(await _loginService.Login(command));
+        }
+
+        [HttpPost("register")]
+        public async Task<IActionResult> Register([FromBody] RegisterCommand command, CancellationToken cancellationToken)
+        {
+            return Ok(await _registerService.Register(command, cancellationToken));
         }
     }
 }

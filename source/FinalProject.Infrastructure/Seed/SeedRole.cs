@@ -18,7 +18,9 @@ namespace FinalProject.Infrastructure.Seed
             if (!builder.Model.GetEntityTypes().Any(e => e.ClrType.Name == "user_roles"))
             {
                 builder.Entity<Role>().HasData(
-                    new Role { Id = RoleParameter.SuperAdmin.Id, Name = RoleParameter.SuperAdmin.Name }
+                    new Role { Id = RoleParameter.SuperAdmin.Id, Name = RoleParameter.SuperAdmin.Name },
+                    new Role { Id = RoleParameter.User.Id, Name = RoleParameter.User.Name },
+                    new Role { Id = RoleParameter.Company.Id, Name = RoleParameter.Company.Name }
                 );
             }
         }

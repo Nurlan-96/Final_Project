@@ -13,6 +13,8 @@ namespace FinalProject.Infrastructure.Configurations
 
             builder.Property(c => c.Name).HasMaxLength(50).HasColumnName("name");
             builder.HasIndex(c => c.Name).IsUnique();
+
+            builder.Ignore(c => c.UpdatedDate);
         }
     }
 }

@@ -3,6 +3,7 @@ using System;
 using FinalProject.Infrastructure.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace FinalProject.Infrastructure.Migrations.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240918180135_UserRoleForMe")]
+    partial class UserRoleForMe
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -215,6 +218,9 @@ namespace FinalProject.Infrastructure.Migrations.Migrations
                         .HasColumnType("character varying(50)")
                         .HasColumnName("name");
 
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("timestamp with time zone");
+
                     b.HasKey("Id");
 
                     b.HasIndex("Name")
@@ -226,20 +232,14 @@ namespace FinalProject.Infrastructure.Migrations.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedDate = new DateTime(2024, 9, 18, 18, 9, 36, 337, DateTimeKind.Utc).AddTicks(4697),
+                            CreatedDate = new DateTime(2024, 9, 18, 18, 1, 34, 894, DateTimeKind.Utc).AddTicks(2169),
                             Name = "SuperAdmin"
                         },
                         new
                         {
                             Id = 2,
-                            CreatedDate = new DateTime(2024, 9, 18, 18, 9, 36, 337, DateTimeKind.Utc).AddTicks(4702),
+                            CreatedDate = new DateTime(2024, 9, 18, 18, 1, 34, 894, DateTimeKind.Utc).AddTicks(2176),
                             Name = "User"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            CreatedDate = new DateTime(2024, 9, 18, 18, 9, 36, 337, DateTimeKind.Utc).AddTicks(4703),
-                            Name = "Company"
                         });
                 });
 
@@ -301,12 +301,12 @@ namespace FinalProject.Infrastructure.Migrations.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedDate = new DateTime(2024, 9, 18, 18, 9, 36, 337, DateTimeKind.Utc).AddTicks(4811),
+                            CreatedDate = new DateTime(2024, 9, 18, 18, 1, 34, 894, DateTimeKind.Utc).AddTicks(2306),
                             Email = "alex@example.com",
                             Fullname = "Alex Mercer",
                             IsBanned = false,
-                            PasswordHash = "AQAAAAEACSfAAAAAEAiD/UeaR0n/Jr9DqcEnNnEjvjr42JcjnIDHTQpRJyZ4muAxj4gV63FgP2/o+q+mSg==",
-                            PhoneNumber = "000000",
+                            PasswordHash = "AQAAAAEACSfAAAAAEAbDnBwcKjrXAapsKUikU4iCrH3QsTXvz/i+7fF8lc1qCU3RwR072bolC6xXOx76+A==",
+                            PhoneNumber = "Test",
                             RoleId = 1
                         });
                 });

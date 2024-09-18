@@ -9,6 +9,7 @@ using Infrastructure.Identity;
 using Infrastructure.Middleware;
 using System.Reflection;
 using User.Module.Services;
+using UserModule.Handlers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -31,6 +32,7 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserQueries, UserQueries>();
 builder.Services.AddScoped<IClaimsManager, ClaimsManager>();
 builder.Services.AddScoped<ILoginService, LoginService>();
+builder.Services.AddScoped<IRegisterService, RegisterService>();
 builder.Services.AddTransient<GlobalExceptionHandler>();
 
 foreach (Assembly assembly in AppDomain.CurrentDomain.GetAssemblies())

@@ -13,7 +13,6 @@ namespace FinalProject.Domain.Entities
         public Role Role { get; set; }
         public bool IsBanned { get; set; }
         public string? RefreshToken { get; set; }
-
         public void SetRole(int roleId)
         {
             RoleId = roleId;

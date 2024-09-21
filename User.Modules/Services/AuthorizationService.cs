@@ -1,4 +1,5 @@
 ﻿using CryptoHelper;
+using Domain.Entities.RoleAggergate;
 using Domain.Exceptions;
 using FinalProject.Domain.Entities;
 using FinalProject.Domain.Reporistories;
@@ -9,7 +10,7 @@ using User.Module.Commands;
 
 namespace User.Module.Services
 {
-    public class LoginService(IUserManager userManager, IUserQueries userQueries, IUserRepository userRepository) : ILoginService
+    public class AuthorizationService(IUserManager userManager, IUserQueries userQueries, IUserRepository userRepository) : IAuthorizationService
     {
         private readonly IUserManager _userManager = userManager
             ?? throw new ArgumentNullException(nameof(userManager));
@@ -65,6 +66,22 @@ namespace User.Module.Services
                 RefreshToken = refreshTokenValue,
                 ExpiresAt = expiresAt
             };
+        }
+        public async Task<bool> Register(RegisterCommand request, CancellationToken cancellationToken)
+        {
+            UserEntity existingUser = await _userQueries
+                .FindAsync(request.Email);
+
+            if (existingUser != null)
+                throw new UnauthorizedAccessException("User already exists.");
+
+            UserEntity user = new();
+            user.SetDetails(request.Fullname, request.Email, request.Phone);
+            user.ChangePassword(Crypto.HashPassword(request.Password));
+            user.SetRole(RoleParameter.User.Id);
+            await _userRepository.AddAsync(user);
+            await _userRepository.UnitOfWork.SaveChangesAsync(cancellationToken);
+            return true;
         }
     }
 }

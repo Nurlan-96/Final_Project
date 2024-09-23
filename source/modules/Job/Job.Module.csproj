@@ -11,4 +11,8 @@
     <ProjectReference Include="..\..\FinalProject.SharedKernel.Domain\FinalProject.SharedKernel.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Responses\" />
+  </ItemGroup>
+
 </Project>

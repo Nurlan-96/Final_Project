@@ -47,7 +47,7 @@ namespace IdentityModule.Queries
 				.AsEnumerable();
 
             var mapped = _mapper.Map<IEnumerable<UserResponse>>(data);
-            return new Pagination<UserResponse>(mapped.ToList(), page, size, mapped.Count());
+            return new Pagination<UserResponse>(mapped.ToList(), page, size);
         }
 
         public async Task<UserResponse> GetUserResponseAsync(int? userId)

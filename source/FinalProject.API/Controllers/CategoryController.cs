@@ -1,37 +1,24 @@
-﻿using FinalProject.Domain.Reporistories;
-using Job.Module.Command;
-using Job.Module.Service;
-using Microsoft.AspNetCore.Authorization;
+﻿using Job.Module.Queries;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FinalProject.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public partial class CategoryController(ICategoryRepository categoryRepo, ICategoryService categoryService) : ControllerBase
+    public class CategoryController(ICategoryQuery categoryQuery) : ControllerBase
     {
-        private readonly ICategoryRepository _categoryRepository = categoryRepo;
-        private readonly ICategoryService _categoryService = categoryService;
+        private readonly ICategoryQuery _categoryQuery = categoryQuery;
 
-        
-        [HttpPost("Create")]
-        [Authorize("Company")]
-        public async Task<IActionResult> CreateCategory([FromBody] CreateCategoryCommand command)
+        [HttpGet]
+        public async Task<IActionResult> GetAll([FromQuery] int page, int size)
         {
-            return Ok(await _categoryService.CreateCategory(command));
+            return Ok(await _categoryQuery.GetAllCategories(page, size));
         }
 
-        [HttpPatch]
-        public async Task<IActionResult> UpdateCategory([FromBody] UpdateCategoryCommand command)
+        [HttpGet("id")]
+        public async Task<IActionResult> GetById([FromForm] int id)
         {
-            return Ok(await _categoryService.UpdateCategory(command));
+            return Ok(await _categoryQuery.GetCategoryById(id));
         }
-
-        [HttpDelete]
-        public async Task<IActionResult> DeleteCategory([FromBody] int categoryId)
-        {
-            return Ok(await _categoryService.DeleteCategory(categoryId));
-        }
-
     }
 }

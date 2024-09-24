@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\source\modules\Identity.Module\Identity.Module.csproj" />
+    <ProjectReference Include="..\Identity.Module\Identity.Module.csproj" />
   </ItemGroup>
 
 </Project>

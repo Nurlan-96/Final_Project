@@ -38,10 +38,8 @@ namespace FinalProject.SharedKernel.Domain.Extensions
             var request = httpContextAccessor.HttpContext.Request;
             var baseUrl = $"{request.Scheme}://{request.Host.Value}";
 
-            string relativePath = Path.Combine("wwwroot/img", Path.GetFileName(uploadPath), fileName);
+            string relativePath = Path.Combine("img", Path.GetFileName(uploadPath), fileName);
             return $"{baseUrl}/{relativePath.Replace("\\", "/")}";
         }
     }
-
-
 }

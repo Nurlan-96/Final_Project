@@ -1,6 +1,6 @@
 ﻿using FinalProject.Domain.Constants;
 
-namespace Job.Module.Command
+namespace Job.Module.Commands
 {
     public class CreateJobCommand
     {

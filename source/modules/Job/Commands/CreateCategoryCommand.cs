@@ -1,4 +1,4 @@
-﻿namespace Job.Module.Command
+﻿namespace Job.Module.Commands
 {
     public class CreateCategoryCommand
     {

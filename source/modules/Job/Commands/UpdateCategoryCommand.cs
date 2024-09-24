@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Job.Module.Command
+namespace Job.Module.Commands
 {
     public class UpdateCategoryCommand
     {

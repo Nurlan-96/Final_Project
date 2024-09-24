@@ -1,7 +1,7 @@
 ﻿using Domain.Exceptions;
 using FinalProject.Domain.Entities;
 using FinalProject.Domain.Reporistories;
-using Job.Module.Command;
+using Job.Module.Commands;
 using Microsoft.AspNetCore.Http;
 
 namespace Job.Module.Service

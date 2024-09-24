@@ -29,12 +29,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\User.Modules\User.Module.csproj" />
     <ProjectReference Include="..\FinalProject.Application\FinalProject.Application.csproj" />
     <ProjectReference Include="..\FinalProject.Infrastructure.Migrations\FinalProject.Infrastructure.Migrations.csproj" />
     <ProjectReference Include="..\FinalProject.Infrastructure\FinalProject.Infrastructure.csproj" />
     <ProjectReference Include="..\FinalProject.SharedKernel.Domain\FinalProject.SharedKernel.Domain.csproj" />
+    <ProjectReference Include="..\modules\Company.Module\Company.Module.csproj" />
+    <ProjectReference Include="..\modules\Identity.Module\Identity.Module.csproj" />
     <ProjectReference Include="..\modules\Job\Job.Module.csproj" />
+    <ProjectReference Include="..\modules\User.Modules\User.Module.csproj" />
   </ItemGroup>
 
   <ItemGroup>

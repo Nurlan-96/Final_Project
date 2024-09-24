@@ -1,4 +1,4 @@
-﻿using Job.Module.Command;
+﻿using Job.Module.Commands;
 
 namespace Job.Module.Service
 {

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FinalProject.Application.Usecase
 {
-    public class CompanyRepository(AppDbContext context) : Repository<Company>, ICompanyRepository
+    public class CompanyRepository(AppDbContext context) : Repository<CompanyEntity>, ICompanyRepository
     {
         public sealed override DbContext Context { get; protected set; } = context;
     }

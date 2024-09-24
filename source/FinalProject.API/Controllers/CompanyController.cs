@@ -1,6 +1,6 @@
-﻿using FinalProject.Domain.Reporistories;
-using Job.Module.Command;
-using Job.Module.Service;
+﻿using Company.Module.Commands;
+using Company.Module.Services;
+using FinalProject.Domain.Reporistories;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FinalProject.API.Controllers
@@ -28,15 +28,20 @@ namespace FinalProject.API.Controllers
             return Ok(await _companyService.CreateCompany(command));
         }
 
-        [HttpPut]
+        [HttpPut("Update")]
         public async Task<IActionResult> UpdateCompany([FromForm] UpdateCompanyCommand command)
         {
             return Ok(await _companyService.UpdateCompany(command));
         }
-        [HttpPatch]
+        [HttpPatch("Archive")]
         public async Task<IActionResult> ArchiveCompany([FromBody] UpdateCompanyCommand command)
         {
             return Ok(await _companyService.ArchiveCompany(command));
+        } 
+        [HttpDelete]
+        public async Task<IActionResult> DeleteCompany([FromForm] int companyId)
+        {
+            return Ok(await _companyService.DeleteCompany(companyId));
         }
     }
 }

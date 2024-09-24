@@ -11,7 +11,7 @@ namespace FinalProject.Domain.Entities
         public string Address { get; set; }
         public int Salary { get; set; }
         public int CompanyId { get; set; }
-        public Company Company { get; set; }
+        public CompanyEntity Company { get; set; }
         public int CategoryId { get; set; }
         public Category Category { get; set; }
         public int CityId { get; set; }

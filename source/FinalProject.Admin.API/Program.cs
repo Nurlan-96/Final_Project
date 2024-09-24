@@ -17,6 +17,7 @@ using Swashbuckle.AspNetCore.Filters;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Job.Module.Queries;
+using Company.Module.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 

@@ -1,5 +1,5 @@
 ﻿using FinalProject.Domain.Reporistories;
-using Job.Module.Command;
+using Job.Module.Commands;
 using Job.Module.Service;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

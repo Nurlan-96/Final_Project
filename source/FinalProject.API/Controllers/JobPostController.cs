@@ -1,5 +1,7 @@
 ﻿using FinalProject.Domain.Reporistories;
-using Job.Module.Command;
+using Job.Module;
+using Job.Module.Commands;
+using Job.Module.Queries;
 using Job.Module.Service;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -8,16 +10,24 @@ namespace FinalProject.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class JobPostController(IJobRepository jobRepo, IJobService jobService): ControllerBase
+    public class JobPostController(IJobRepository jobRepo, IJobService jobService, IJobQuery jobQuery) : ControllerBase
     {
         private readonly IJobRepository _jobRepository = jobRepo;
         private readonly IJobService _jobService = jobService;
+        private readonly IJobQuery _jobQuery = jobQuery;
 
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll([FromQuery] int page, int size)
         {
-            return Ok(await _jobRepository.GetAllAsync());
+            return Ok(await _jobQuery.GetAllJobs(page, size));
         }
+
+        [HttpGet("id")]
+        public async Task<IActionResult> GetById([FromForm] int id)
+        {
+            return Ok(await _jobQuery.GetJobById(id));
+        }
+
         [HttpPost("Create")]
         public async Task<IActionResult> PostJob([FromBody] CreateJobCommand command)
         {

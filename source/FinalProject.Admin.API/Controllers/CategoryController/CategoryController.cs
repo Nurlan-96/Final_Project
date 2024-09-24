@@ -1,6 +1,6 @@
 ﻿using Domain.Attributes;
 using Domain.Entities.RoleAggergate;
-using Job.Module.Command;
+using Job.Module.Commands;
 using Job.Module.Queries;
 using Job.Module.Service;
 using Microsoft.AspNetCore.Mvc;

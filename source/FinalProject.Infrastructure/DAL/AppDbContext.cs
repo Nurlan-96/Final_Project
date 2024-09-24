@@ -12,7 +12,7 @@ namespace FinalProject.Infrastructure.DAL
     public class AppDbContext(DbContextOptions options, IConfiguration configuration) : DbContext(options), IUnitOfWork
     {
         public DbSet<JobPost> JobPosts { get; set; }
-        public DbSet<Company> Companies { get; set; }
+        public DbSet<CompanyEntity> Companies { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<City> Cities { get; set; }
         public DbSet<Role> Roles { get; set; }

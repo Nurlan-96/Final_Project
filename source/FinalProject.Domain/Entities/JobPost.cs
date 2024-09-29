@@ -14,8 +14,7 @@ namespace FinalProject.Domain.Entities
         public CompanyEntity Company { get; set; }
         public int CategoryId { get; set; }
         public Category Category { get; set; }
-        public int CityId { get; set; }
-        public City City { get; set; }
+        public CityEnum City { get; set; }
         public EducationEnum Education { get; set; }
         public EmploymentTypeEnum EmploymentType { get; set; }
         public ExperienceEnum Experience { get; set; }

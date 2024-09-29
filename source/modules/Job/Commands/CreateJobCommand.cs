@@ -11,7 +11,7 @@ namespace Job.Module.Commands
         public int Salary { get; set; }
         public int CompanyId { get; set; }
         public int CategoryId { get; set; }
-        public int CityId { get; set; }
+        public CityEnum City { get; set; }
         public EducationEnum Education { get; set; }
         public EmploymentTypeEnum EmploymentType { get; set; }
         public ExperienceEnum Experience { get; set; }

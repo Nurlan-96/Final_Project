@@ -21,7 +21,6 @@ namespace FinalProject.Infrastructure.Configurations
 
             builder.Property(c => c.Address).HasColumnName("address");
             builder.Property(c => c.Salary).HasColumnName("salary");
-            builder.Property(c => c.CityId).HasColumnName("city_id");
             builder.HasIndex(c => c.Name).IsUnique();
         }
     }

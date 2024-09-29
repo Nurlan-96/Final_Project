@@ -22,7 +22,7 @@ namespace Job.Module.Service
                 Experience = command.Experience,
                 EmploymentType = command.EmploymentType,
                 ExpirationDate = command.ExpirationDate,
-                CityId = command.CityId,
+                City = command.City,
                 CompanyId = command.CompanyId,
                 IsDeleted = false,
             };
@@ -38,7 +38,7 @@ namespace Job.Module.Service
             #region update
             data.UpdatedDate = DateTime.UtcNow;
             data.ExpirationDate = command.ExpirationDate;
-            data.CityId = command.CityId;
+            data.City = command.City;
             data.CompanyId = command.CompanyId;
             data.CategoryId = command.CategoryId;
             data.Address = command.Address;

@@ -19,6 +19,11 @@ namespace FinalProject.Infrastructure.Configurations
             builder.Property(c => c.PasswordHash).IsRequired().HasColumnName("password");
             builder.Property(c => c.RefreshToken).HasColumnName("refresh_token");
             builder.Property(c => c.RoleId).IsRequired().HasColumnName("role");
+            builder.Property(c => c.OTPCode).HasColumnName("otpcode");
+            builder.Property(c => c.OTPExpirationDate).HasColumnName("otpexpireationdate");
+            builder.Property(c => c.OTPExpirationDate).HasColumnName("otpexpireationdate");
+            builder.Property(c => c.AllowChangeWithOTP).HasColumnName("allowchangewithotp");
+            builder.Property(c => c.RefreshToken).HasColumnName("refreshtoken");
         }
     }
 }

@@ -1,9 +1,7 @@
 ﻿using FinalProject.Domain.Reporistories;
 using Job.Module;
 using Job.Module.Commands;
-using Job.Module.Queries;
 using Job.Module.Service;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FinalProject.API.Controllers
@@ -26,6 +24,11 @@ namespace FinalProject.API.Controllers
         public async Task<IActionResult> GetById([FromForm] int id)
         {
             return Ok(await _jobQuery.GetJobById(id));
+        }        
+        [HttpGet("category")]
+        public async Task<IActionResult> GetByCategory([FromForm] int id)
+        {
+            return Ok(await _jobQuery.GetJobByCategory(id));
         }
 
         [HttpPost("Create")]

@@ -14,11 +14,9 @@ namespace FinalProject.Infrastructure.DAL
         public DbSet<JobPost> JobPosts { get; set; }
         public DbSet<CompanyEntity> Companies { get; set; }
         public DbSet<Category> Categories { get; set; }
-        public DbSet<City> Cities { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<UserEntity> Users { get; set; }
         public DbSet<Report> Reports { get; set; }
-
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

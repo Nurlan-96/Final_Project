@@ -3,7 +3,7 @@ using FinalProject.SharedKernel.Domain.Seedwork;
 
 namespace FinalProject.Domain.Entities
 {
-    public class UserEntity:BaseEntity
+    public class UserEntity : BaseEntity
     {
         public string Fullname { get; set; }
         public string Email { get; set; }
@@ -12,6 +12,9 @@ namespace FinalProject.Domain.Entities
         public int RoleId { get; set; }
         public Role Role { get; set; }
         public bool IsBanned { get; set; }
+        public string? OTPCode { get; set; }
+        public bool AllowChangeWithOTP { get; set; }
+        public  DateTime? OTPExpirationDate { get; set; }
         public string? RefreshToken { get; set; }
         public void SetRole(int roleId)
         {
@@ -35,23 +38,23 @@ namespace FinalProject.Domain.Entities
             RefreshToken = refreshToken;
         }
 
-        //public void SetOTP(string otp, DateTime expDate)
-        //{
-        //    OTPCode = otp;
-        //    OTPExpirationDate = expDate;
-        //}
+        public void SetOTP(string otp, DateTime expDate)
+        {
+            OTPCode = otp;
+            OTPExpirationDate = expDate;
+        }
 
-        //public void NullifyOTP()
-        //{
-        //    OTPCode = null;
-        //    OTPExpirationDate = null;
-        //    AllowChangeWithOTP = false;
-        //}
+        public void NullifyOTP()
+        {
+            OTPCode = null;
+            OTPExpirationDate = null;
+            AllowChangeWithOTP = false;
+        }
 
-        //public void AllowPasswordChangeWithOTP()
-        //{
-        //    AllowChangeWithOTP = true;
-        //}
+        public void AllowPasswordChangeWithOTP()
+        {
+            AllowChangeWithOTP = true;
+        }
 
     }
 }

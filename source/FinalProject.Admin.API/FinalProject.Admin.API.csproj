@@ -25,6 +25,7 @@
     <ProjectReference Include="..\FinalProject.Application\FinalProject.Application.csproj" />
     <ProjectReference Include="..\FinalProject.Domain\FinalProject.Domain.csproj" />
     <ProjectReference Include="..\modules\Company.Module\Company.Module.csproj" />
+    <ProjectReference Include="..\modules\Email.Module\Email.Module.csproj" />
     <ProjectReference Include="..\modules\Identity.Module\Identity.Module.csproj" />
     <ProjectReference Include="..\modules\Job\Job.Module.csproj" />
     <ProjectReference Include="..\modules\User.Modules\User.Module.csproj" />

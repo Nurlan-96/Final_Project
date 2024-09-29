@@ -18,6 +18,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Job.Module.Queries;
 using Company.Module.Services;
+using EmailModule.Manager;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -50,6 +51,7 @@ builder.Services.AddScoped<IClaimsManager, ClaimsManager>();
 builder.Services.AddScoped<IAuthorizationService, AuthorizationService>();
 #endregion
 builder.Services.AddTransient<GlobalExceptionHandler>();
+builder.Services.AddSingleton<IEmailManager, EmailManager>();
 
 foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
 {
@@ -110,6 +112,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+app.UseMiddleware<GlobalExceptionHandler>();
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();

@@ -17,6 +17,8 @@ using Swashbuckle.AspNetCore.Filters;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Company.Module.Services;
+using Job.Module;
+using Job.Module.Queries;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,6 +32,8 @@ builder.Services.AddDbContext<AppDbContext>();
 builder.Services.AddLogging();
 builder.Services.AddHttpContextAccessor();
 
+
+
 #region Service Registry
 Assembly.Load("Identity.Module");
 Assembly.Load("User.Module");
@@ -40,6 +44,7 @@ builder.Services.AddScoped<ICompanyService, CompanyService>();
 builder.Services.AddScoped<ICompanyRepository, CompanyRepository>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
+builder.Services.AddScoped<IJobQuery, JobQuery>();
 #region User/Authorization
 builder.Services.AddScoped<IUserManager, UserManager>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
@@ -102,12 +107,19 @@ builder.Services.Configure<JWTSettings>(configuration.GetSection(nameof(JWTSetti
 
 var app = builder.Build();
 app.UseStaticFiles();
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors(
+builder => builder
+    .AllowAnyOrigin()
+    .AllowAnyMethod()
+    .AllowAnyHeader());
+
+app.UseMiddleware<GlobalExceptionHandler>();
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();

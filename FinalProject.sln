@@ -27,6 +27,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "User.Module", "source\modul
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Company.Module", "source\modules\Company.Module\Company.Module.csproj", "{DFE7368C-57B0-4F92-935F-965E95814D40}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Email.Module", "source\modules\Email.Module\Email.Module.csproj", "{1CAA3B32-067C-4157-9242-CBCC2F7D267E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -77,6 +79,10 @@ Global
 		{DFE7368C-57B0-4F92-935F-965E95814D40}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DFE7368C-57B0-4F92-935F-965E95814D40}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DFE7368C-57B0-4F92-935F-965E95814D40}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1CAA3B32-067C-4157-9242-CBCC2F7D267E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1CAA3B32-067C-4157-9242-CBCC2F7D267E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1CAA3B32-067C-4157-9242-CBCC2F7D267E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1CAA3B32-067C-4157-9242-CBCC2F7D267E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -86,6 +92,7 @@ Global
 		{310979EF-2B04-4CF0-86FB-E61FE2B5F7BD} = {3AA6F001-B60A-476B-A572-A3E835CFECAA}
 		{9BBF0EBF-4A39-4ED4-A7E5-8279C824CC54} = {3AA6F001-B60A-476B-A572-A3E835CFECAA}
 		{DFE7368C-57B0-4F92-935F-965E95814D40} = {3AA6F001-B60A-476B-A572-A3E835CFECAA}
+		{1CAA3B32-067C-4157-9242-CBCC2F7D267E} = {3AA6F001-B60A-476B-A572-A3E835CFECAA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {86D98327-8D2A-4C8D-815A-E09304682607}

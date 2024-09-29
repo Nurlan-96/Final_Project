@@ -3,6 +3,7 @@ using System;
 using FinalProject.Infrastructure.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace FinalProject.Infrastructure.Migrations.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240927171759_removedCityTable")]
+    partial class removedCityTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -236,19 +239,19 @@ namespace FinalProject.Infrastructure.Migrations.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedDate = new DateTime(2024, 9, 29, 11, 55, 15, 640, DateTimeKind.Utc).AddTicks(871),
+                            CreatedDate = new DateTime(2024, 9, 27, 17, 17, 58, 791, DateTimeKind.Utc).AddTicks(7023),
                             Name = "SuperAdmin"
                         },
                         new
                         {
                             Id = 2,
-                            CreatedDate = new DateTime(2024, 9, 29, 11, 55, 15, 640, DateTimeKind.Utc).AddTicks(876),
+                            CreatedDate = new DateTime(2024, 9, 27, 17, 17, 58, 791, DateTimeKind.Utc).AddTicks(7028),
                             Name = "User"
                         },
                         new
                         {
                             Id = 3,
-                            CreatedDate = new DateTime(2024, 9, 29, 11, 55, 15, 640, DateTimeKind.Utc).AddTicks(877),
+                            CreatedDate = new DateTime(2024, 9, 27, 17, 17, 58, 791, DateTimeKind.Utc).AddTicks(7029),
                             Name = "Company"
                         });
                 });
@@ -260,10 +263,6 @@ namespace FinalProject.Infrastructure.Migrations.Migrations
                         .HasColumnType("integer");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<bool>("AllowChangeWithOTP")
-                        .HasColumnType("boolean")
-                        .HasColumnName("allowchangewithotp");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("timestamp with time zone");
@@ -282,14 +281,6 @@ namespace FinalProject.Infrastructure.Migrations.Migrations
                     b.Property<bool>("IsBanned")
                         .HasColumnType("boolean");
 
-                    b.Property<string>("OTPCode")
-                        .HasColumnType("text")
-                        .HasColumnName("otpcode");
-
-                    b.Property<DateTime?>("OTPExpirationDate")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("otpexpireationdate");
-
                     b.Property<string>("PasswordHash")
                         .IsRequired()
                         .HasColumnType("text")
@@ -301,7 +292,7 @@ namespace FinalProject.Infrastructure.Migrations.Migrations
 
                     b.Property<string>("RefreshToken")
                         .HasColumnType("text")
-                        .HasColumnName("refreshtoken");
+                        .HasColumnName("refresh_token");
 
                     b.Property<int>("RoleId")
                         .HasColumnType("integer")
@@ -323,12 +314,11 @@ namespace FinalProject.Infrastructure.Migrations.Migrations
                         new
                         {
                             Id = 1,
-                            AllowChangeWithOTP = false,
-                            CreatedDate = new DateTime(2024, 9, 29, 11, 55, 15, 640, DateTimeKind.Utc).AddTicks(1014),
+                            CreatedDate = new DateTime(2024, 9, 27, 17, 17, 58, 791, DateTimeKind.Utc).AddTicks(7172),
                             Email = "alex@example.com",
                             Fullname = "Alex Mercer",
                             IsBanned = false,
-                            PasswordHash = "AQAAAAEACSfAAAAAEECtOLdKVQi630IGitQVXHUW0DOBSDnehbkJ3KRqN1NrzExVEk4DGPJAG/AWW5j7Zg==",
+                            PasswordHash = "AQAAAAEACSfAAAAAEB/rfnR9+A3+2aAqGJnAW2oC2xkYzgp0HY3J04YjdBXcSnmfH2dv8i0D9MW8AjXJMw==",
                             PhoneNumber = "000000",
                             RoleId = 1
                         });

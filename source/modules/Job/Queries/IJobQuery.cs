@@ -7,5 +7,6 @@ namespace Job.Module
     {
         Task<Pagination<JobPost>> GetAllJobs(int page, int size);
         Task<JobPost> GetJobById(int id);
+        Task<JobPost> GetJobByCategory(int categoryId);
     }
 }

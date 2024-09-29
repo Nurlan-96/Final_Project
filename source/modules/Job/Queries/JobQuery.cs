@@ -19,6 +19,11 @@ namespace Job.Module.Queries
         {
             return await _jobRepo.GetWhere(x => x.Id == id)
                 ?? throw new EntityNotFoundException<JobPost>();
+        }        
+        public async Task<JobPost> GetJobByCategory(int categoryId)
+        {
+            return await _jobRepo.GetWhere(x => x.CategoryId == categoryId)
+                ?? throw new EntityNotFoundException<JobPost>();
         }
     }
 }

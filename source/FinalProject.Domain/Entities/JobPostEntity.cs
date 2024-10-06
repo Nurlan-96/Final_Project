@@ -3,7 +3,7 @@ using FinalProject.SharedKernel.Domain.Seedwork;
 
 namespace FinalProject.Domain.Entities
 {
-    public class JobPost : BaseEntity
+    public class JobPostEntity : BaseEntity
     {
         public string Name { get; set; }
         public string Description { get; set; }
@@ -13,7 +13,7 @@ namespace FinalProject.Domain.Entities
         public int CompanyId { get; set; }
         public CompanyEntity Company { get; set; }
         public int CategoryId { get; set; }
-        public Category Category { get; set; }
+        public CategoryEntity Category { get; set; }
         public CityEnum City { get; set; }
         public EducationEnum Education { get; set; }
         public EmploymentTypeEnum EmploymentType { get; set; }

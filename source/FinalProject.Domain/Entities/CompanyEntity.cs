@@ -12,5 +12,12 @@ namespace FinalProject.Domain.Entities
         public string Address {  get; set; }
         public bool IsDeleted { get; set; }
 
+        private readonly List<JobPostEntity> _jobposts;
+        public IReadOnlyCollection<JobPostEntity> JobPosts => _jobposts;
+        public CompanyEntity()
+        {
+            _jobposts = [];
+        }
+
     }
 }

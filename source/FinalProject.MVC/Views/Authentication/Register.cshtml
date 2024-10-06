@@ -1,0 +1,47 @@
+﻿@using User.Module.Commands
+@model RegisterCommand
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card my-5">
+                <div class="card-header bg-secondary text-white text-center">
+                    <h4>Register</h4>
+                </div>
+                <div class="card-body">
+                    <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+                    <form method="post">
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Full Name</label>
+                            <input asp-for="Fullname" type="text" class="form-control" placeholder="Enter your full name">
+                            <span asp-validation-for="Fullname" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email address</label>
+                            <input asp-for="Email" type="email" class="form-control" placeholder="Enter your email">
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>                        
+                        <div class="mb-3">
+                            <label for="phone" class="form-label">Phone Number</label>
+                            <input asp-for="Phone" type="number" class="form-control" placeholder="Enter your email">
+                            <span asp-validation-for="Phone" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Password</label>
+                            <input asp-for="Password" type="password" class="form-control" placeholder="Enter your password">
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label for="confirm-password" class="form-label">Confirm Password</label>
+                            <input asp-for="ConfirmPassword" type="password" class="form-control" placeholder="Confirm your password">
+                            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                        </div>
+                        <button type="submit" class="btn btn-secondary w-100">Register</button>
+                    </form>
+                    <div class="text-center mt-3">
+                        <a asp-action="login" asp-controller="authentication" class="text-secondary">Already have an account? Login</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

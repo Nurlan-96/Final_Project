@@ -11,12 +11,15 @@ namespace FinalProject.Infrastructure.DAL
 {
     public class AppDbContext(DbContextOptions options, IConfiguration configuration) : DbContext(options), IUnitOfWork
     {
-        public DbSet<JobPost> JobPosts { get; set; }
+        public DbSet<JobPostEntity> JobPosts { get; set; }
         public DbSet<CompanyEntity> Companies { get; set; }
-        public DbSet<Category> Categories { get; set; }
+        public DbSet<CategoryEntity> Categories { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<UserEntity> Users { get; set; }
         public DbSet<Report> Reports { get; set; }
+        public DbSet<UserAppliedJob> UserAppliedJobs { get; set; }
+        public DbSet<CVJob> CVJobs { get; set; }
+        public DbSet<CVEntity> CVEntities { get; set; }
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

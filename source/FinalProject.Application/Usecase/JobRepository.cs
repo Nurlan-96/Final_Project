@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FinalProject.Application.Usecase
 {
-    public class JobRepository(AppDbContext context) : Repository<JobPost>, IJobRepository
+    public class JobRepository(AppDbContext context) : Repository<JobPostEntity>, IJobRepository
     {
         public sealed override DbContext Context { get; protected set; } = context;
     }

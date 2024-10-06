@@ -21,7 +21,7 @@ namespace FinalProject.API.Controllers
         }
 
         [HttpGet("id")]
-        public async Task<IActionResult> GetById([FromForm] int id)
+        public async Task<IActionResult> GetById([FromQuery] int id)
         {
             return Ok(await _jobQuery.GetJobById(id));
         }        

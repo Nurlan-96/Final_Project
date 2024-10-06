@@ -13,7 +13,7 @@ namespace Infrastructure.Identity
 		{
 			var claim = GetUserClaim(ClaimTypes.NameIdentifier);
 
-			if (!int.TryParse(claim.Value, out var currentUserId)) //Was Guid
+			if (!int.TryParse(claim.Value, out var currentUserId))
 				throw new AuthenticationException("Can't parse claim value to required type");
 
 			return currentUserId;

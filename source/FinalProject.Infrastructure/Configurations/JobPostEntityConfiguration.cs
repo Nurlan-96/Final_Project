@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore;
 namespace FinalProject.Infrastructure.Configurations
 {
 
-    public class JobPostEntityConfiguration : IEntityTypeConfiguration<JobPost>
+    public class JobPostEntityConfiguration : IEntityTypeConfiguration<JobPostEntity>
     {
-        public void Configure(EntityTypeBuilder<JobPost> builder)
+        public void Configure(EntityTypeBuilder<JobPostEntity> builder)
         {
             builder.ToTable("jobpost");
             builder.HasKey(c => c.Id);
@@ -21,7 +21,6 @@ namespace FinalProject.Infrastructure.Configurations
 
             builder.Property(c => c.Address).HasColumnName("address");
             builder.Property(c => c.Salary).HasColumnName("salary");
-            builder.HasIndex(c => c.Name).IsUnique();
         }
     }
 

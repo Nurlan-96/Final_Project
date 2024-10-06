@@ -17,13 +17,22 @@ namespace FinalProject.Infrastructure.Configurations
             builder.HasIndex(c => c.Email).IsUnique();
 
             builder.Property(c => c.PasswordHash).IsRequired().HasColumnName("password");
+
             builder.Property(c => c.RefreshToken).HasColumnName("refresh_token");
-            builder.Property(c => c.RoleId).IsRequired().HasColumnName("role");
-            builder.Property(c => c.OTPCode).HasColumnName("otpcode");
-            builder.Property(c => c.OTPExpirationDate).HasColumnName("otpexpireationdate");
-            builder.Property(c => c.OTPExpirationDate).HasColumnName("otpexpireationdate");
-            builder.Property(c => c.AllowChangeWithOTP).HasColumnName("allowchangewithotp");
-            builder.Property(c => c.RefreshToken).HasColumnName("refreshtoken");
+            builder.HasIndex(c => c.RefreshToken).IsUnique();
+
+            builder.Property(c => c.PhoneNumber).HasColumnName("phone_number");
+            builder.HasIndex(c => c.PhoneNumber).IsUnique();
+
+            builder.Property(c => c.CVJobId).HasColumnName("cv_job_id");
+            builder.Property(c => c.RoleId).IsRequired().HasColumnName("role_id");
+            builder.Property(c => c.OTPCode).HasColumnName("otp_code");
+            builder.Property(c => c.IsBanned).HasColumnName("is_banned");
+            builder.Property(c => c.OTPExpirationDate).HasColumnName("otp_expireation_date");
+            builder.Property(c => c.AllowChangeWithOTP).HasColumnName("allow_change_with_otp");
+
+            builder.Property(c => c.CreatedDate).HasColumnName("created_date");
+            builder.Property(c => c.UpdatedDate).HasColumnName("updated_date");
         }
     }
 }

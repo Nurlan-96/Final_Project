@@ -8,7 +8,7 @@ namespace FinalProject.Admin.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AuthorizationController(User.Module.Services.IAuthorizationService loginService) : ControllerBase
+    public class AuthenticationController(User.Module.Services.IAuthorizationService loginService) : ControllerBase
     {
         private readonly User.Module.Services.IAuthorizationService _authorizationService = loginService;
 

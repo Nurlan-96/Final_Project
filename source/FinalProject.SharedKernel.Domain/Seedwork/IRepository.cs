@@ -1,4 +1,5 @@
 ﻿using FinalProject.SharedKernel.Domain.Seedwork;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query;
 using System.Linq.Expressions;
 
@@ -11,6 +12,7 @@ namespace SharedKernel.Domain.Seedwork
         Task<List<T>> GetAllAsync();
 		T Update(T entity);
 		bool Delete(T entity);
-		Task<T> GetWhere(Expression<Func<T, bool>> predicate, Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null);
+        Task<T> GetWhere(Expression<Func<T, bool>> predicate, Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null);
+		Task<T> GetAsync(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] includes);
     }
 }

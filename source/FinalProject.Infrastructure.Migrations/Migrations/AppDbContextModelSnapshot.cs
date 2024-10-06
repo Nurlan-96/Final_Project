@@ -22,7 +22,130 @@ namespace FinalProject.Infrastructure.Migrations.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("FinalProject.Domain.Entities.Category", b =>
+            modelBuilder.Entity("FinalProject.Domain.Entities.CVEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("AboutMe")
+                        .IsRequired()
+                        .HasMaxLength(2000)
+                        .HasColumnType("character varying(2000)")
+                        .HasColumnName("desciption");
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)")
+                        .HasColumnName("address");
+
+                    b.Property<int>("City")
+                        .HasColumnType("integer")
+                        .HasColumnName("city");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_date");
+
+                    b.Property<int>("Education")
+                        .HasColumnType("integer")
+                        .HasColumnName("education");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("email");
+
+                    b.Property<int>("EmploymentType")
+                        .HasColumnType("integer")
+                        .HasColumnName("employment_type");
+
+                    b.Property<int>("ExpectedSalary")
+                        .HasColumnType("integer")
+                        .HasColumnName("expctedsalary");
+
+                    b.Property<int>("Experience")
+                        .HasColumnType("integer")
+                        .HasColumnName("experience");
+
+                    b.Property<string>("Fullname")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)")
+                        .HasColumnName("full_name");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("phone_number");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("update_date");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Email")
+                        .IsUnique();
+
+                    b.ToTable("cventity", (string)null);
+                });
+
+            modelBuilder.Entity("FinalProject.Domain.Entities.CVJob", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("City")
+                        .HasColumnType("integer")
+                        .HasColumnName("city");
+
+                    b.Property<string>("CompanyName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)")
+                        .HasColumnName("company_name");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_date");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(5000)
+                        .HasColumnType("character varying(5000)")
+                        .HasColumnName("desciption");
+
+                    b.Property<DateTime?>("EndDate")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("end_date");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)")
+                        .HasColumnName("name");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("start_date");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("update_date");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("cvjob", (string)null);
+                });
+
+            modelBuilder.Entity("FinalProject.Domain.Entities.CategoryEntity", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -31,7 +154,8 @@ namespace FinalProject.Infrastructure.Migrations.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_date");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -40,7 +164,8 @@ namespace FinalProject.Infrastructure.Migrations.Migrations
                         .HasColumnName("name");
 
                     b.Property<DateTime?>("UpdatedDate")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("update_date");
 
                     b.HasKey("Id");
 
@@ -96,7 +221,7 @@ namespace FinalProject.Infrastructure.Migrations.Migrations
                     b.ToTable("Companies");
                 });
 
-            modelBuilder.Entity("FinalProject.Domain.Entities.JobPost", b =>
+            modelBuilder.Entity("FinalProject.Domain.Entities.JobPostEntity", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -164,14 +289,16 @@ namespace FinalProject.Infrastructure.Migrations.Migrations
                     b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<int?>("UserAppliedJobId")
+                        .HasColumnType("integer");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
 
                     b.HasIndex("CompanyId");
 
-                    b.HasIndex("Name")
-                        .IsUnique();
+                    b.HasIndex("UserAppliedJobId");
 
                     b.ToTable("jobpost", (string)null);
                 });
@@ -236,21 +363,46 @@ namespace FinalProject.Infrastructure.Migrations.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedDate = new DateTime(2024, 9, 29, 11, 55, 15, 640, DateTimeKind.Utc).AddTicks(871),
+                            CreatedDate = new DateTime(2024, 10, 5, 18, 36, 15, 398, DateTimeKind.Utc).AddTicks(5596),
                             Name = "SuperAdmin"
                         },
                         new
                         {
                             Id = 2,
-                            CreatedDate = new DateTime(2024, 9, 29, 11, 55, 15, 640, DateTimeKind.Utc).AddTicks(876),
+                            CreatedDate = new DateTime(2024, 10, 5, 18, 36, 15, 398, DateTimeKind.Utc).AddTicks(5603),
                             Name = "User"
                         },
                         new
                         {
                             Id = 3,
-                            CreatedDate = new DateTime(2024, 9, 29, 11, 55, 15, 640, DateTimeKind.Utc).AddTicks(877),
+                            CreatedDate = new DateTime(2024, 10, 5, 18, 36, 15, 398, DateTimeKind.Utc).AddTicks(5604),
                             Name = "Company"
                         });
+                });
+
+            modelBuilder.Entity("FinalProject.Domain.Entities.UserAppliedJob", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("integer")
+                        .HasColumnName("user_id");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("user_applied_jobs", (string)null);
                 });
 
             modelBuilder.Entity("FinalProject.Domain.Entities.UserEntity", b =>
@@ -263,10 +415,15 @@ namespace FinalProject.Infrastructure.Migrations.Migrations
 
                     b.Property<bool>("AllowChangeWithOTP")
                         .HasColumnType("boolean")
-                        .HasColumnName("allowchangewithotp");
+                        .HasColumnName("allow_change_with_otp");
+
+                    b.Property<int?>("CVJobId")
+                        .HasColumnType("integer")
+                        .HasColumnName("cv_job_id");
 
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_date");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -280,15 +437,16 @@ namespace FinalProject.Infrastructure.Migrations.Migrations
                         .HasColumnName("name");
 
                     b.Property<bool>("IsBanned")
-                        .HasColumnType("boolean");
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_banned");
 
                     b.Property<string>("OTPCode")
                         .HasColumnType("text")
-                        .HasColumnName("otpcode");
+                        .HasColumnName("otp_code");
 
                     b.Property<DateTime?>("OTPExpirationDate")
                         .HasColumnType("timestamp with time zone")
-                        .HasColumnName("otpexpireationdate");
+                        .HasColumnName("otp_expireation_date");
 
                     b.Property<string>("PasswordHash")
                         .IsRequired()
@@ -297,22 +455,32 @@ namespace FinalProject.Infrastructure.Migrations.Migrations
 
                     b.Property<string>("PhoneNumber")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("text")
+                        .HasColumnName("phone_number");
 
                     b.Property<string>("RefreshToken")
                         .HasColumnType("text")
-                        .HasColumnName("refreshtoken");
+                        .HasColumnName("refresh_token");
 
                     b.Property<int>("RoleId")
                         .HasColumnType("integer")
-                        .HasColumnName("role");
+                        .HasColumnName("role_id");
 
                     b.Property<DateTime?>("UpdatedDate")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("updated_date");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CVJobId");
+
                     b.HasIndex("Email")
+                        .IsUnique();
+
+                    b.HasIndex("PhoneNumber")
+                        .IsUnique();
+
+                    b.HasIndex("RefreshToken")
                         .IsUnique();
 
                     b.HasIndex("RoleId");
@@ -324,44 +492,80 @@ namespace FinalProject.Infrastructure.Migrations.Migrations
                         {
                             Id = 1,
                             AllowChangeWithOTP = false,
-                            CreatedDate = new DateTime(2024, 9, 29, 11, 55, 15, 640, DateTimeKind.Utc).AddTicks(1014),
+                            CreatedDate = new DateTime(2024, 10, 5, 18, 36, 15, 398, DateTimeKind.Utc).AddTicks(5745),
                             Email = "alex@example.com",
                             Fullname = "Alex Mercer",
                             IsBanned = false,
-                            PasswordHash = "AQAAAAEACSfAAAAAEECtOLdKVQi630IGitQVXHUW0DOBSDnehbkJ3KRqN1NrzExVEk4DGPJAG/AWW5j7Zg==",
+                            PasswordHash = "AQAAAAEACSfAAAAAEPYQGGuZlIcd6EUJdaLvEw+IXabddq3DFR94LYtmTpNJwg5C7vr8G4jP1DZgMn8XqA==",
                             PhoneNumber = "000000",
                             RoleId = 1
                         });
                 });
 
-            modelBuilder.Entity("FinalProject.Domain.Entities.JobPost", b =>
+            modelBuilder.Entity("FinalProject.Domain.Entities.JobPostEntity", b =>
                 {
-                    b.HasOne("FinalProject.Domain.Entities.Category", "Category")
-                        .WithMany()
+                    b.HasOne("FinalProject.Domain.Entities.CategoryEntity", "Category")
+                        .WithMany("JobPosts")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("FinalProject.Domain.Entities.CompanyEntity", "Company")
-                        .WithMany()
+                        .WithMany("JobPosts")
                         .HasForeignKey("CompanyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("FinalProject.Domain.Entities.UserAppliedJob", null)
+                        .WithMany("JobPosts")
+                        .HasForeignKey("UserAppliedJobId");
 
                     b.Navigation("Category");
 
                     b.Navigation("Company");
                 });
 
+            modelBuilder.Entity("FinalProject.Domain.Entities.UserAppliedJob", b =>
+                {
+                    b.HasOne("FinalProject.Domain.Entities.UserEntity", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("FinalProject.Domain.Entities.UserEntity", b =>
                 {
+                    b.HasOne("FinalProject.Domain.Entities.CVJob", "CVJob")
+                        .WithMany()
+                        .HasForeignKey("CVJobId");
+
                     b.HasOne("FinalProject.Domain.Entities.RoleAggregate.Role", "Role")
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.Navigation("CVJob");
+
                     b.Navigation("Role");
+                });
+
+            modelBuilder.Entity("FinalProject.Domain.Entities.CategoryEntity", b =>
+                {
+                    b.Navigation("JobPosts");
+                });
+
+            modelBuilder.Entity("FinalProject.Domain.Entities.CompanyEntity", b =>
+                {
+                    b.Navigation("JobPosts");
+                });
+
+            modelBuilder.Entity("FinalProject.Domain.Entities.UserAppliedJob", b =>
+                {
+                    b.Navigation("JobPosts");
                 });
 #pragma warning restore 612, 618
         }

@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Email.Module\Email.Module.csproj" />
     <ProjectReference Include="..\Identity.Module\Identity.Module.csproj" />
   </ItemGroup>
 

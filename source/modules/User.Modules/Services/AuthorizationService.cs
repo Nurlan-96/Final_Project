@@ -83,5 +83,36 @@ namespace User.Module.Services
             await _userRepository.UnitOfWork.SaveChangesAsync(cancellationToken);
             return true;
         }
+        public async Task<JWTResponse> RefreshToken(string refreshToken)
+        {
+            var splitToken = refreshToken.Split("_");
+            var tokenExpiration = Convert.ToDateTime(splitToken[2]);
+
+            if (tokenExpiration < DateTime.UtcNow)
+                throw new UnauthorizedAccessException("Refresh token has expired.");
+
+            var user = await _userQueries.FindByRefreshToken(refreshToken)
+                ?? throw new EntityNotFoundException<UserEntity>();
+
+            if (user.RefreshToken != refreshToken)
+                throw new UnauthorizedAccessException("Invalid refresh token.");
+
+            // Generate new JWT and refresh token
+            (string newToken, DateTime expiresAt) = _userManager.GenerateJwtToken(user);
+
+            var newRefreshToken = $"{Guid.NewGuid()}_{user.Id}_{DateTime.UtcNow.AddDays(30)}";
+            user.UpdateRefreshToken(newRefreshToken);
+
+            _userRepository.Update(user);
+            await _userRepository.UnitOfWork.SaveChangesAsync();
+
+            return new JWTResponse
+            {
+                Token = newToken,
+                RefreshToken = newRefreshToken,
+                ExpiresAt = expiresAt
+            };
+        }
+
     }
 }

@@ -9,9 +9,11 @@ namespace User.Module.Validators
         {
             RuleFor(x => x.Email).NotEmpty().WithMessage("Email can't be empty")
                .EmailAddress().WithMessage("Not a valid email address");
-            RuleFor(x => x.Password).NotEmpty().WithMessage("Password can't be empty")
-                .MinimumLength(8).WithMessage("Password can't have fewer than 8 characters")
-                .Matches(@"[A-Z]").WithMessage("Password must contain at least one uppercase letter");
+            RuleFor(x => x.Password).NotNull().NotEmpty().MinimumLength(8)
+                    .Must(password => password.Any(char.IsUpper))
+                .WithMessage("Password must contain at least one uppercase letter.")
+                    .Must(password => password.Any(ch => !char.IsLetterOrDigit(ch)))
+                .WithMessage("Password must contain at least one special character.");
             RuleFor(x => x.ConfirmPassword).Matches(x => x.Password).WithMessage("Passwords doesn't match");
             RuleFor(x=>x.Phone).NotEmpty().WithMessage("Phone can't be empty")
                 .MinimumLength(10).WithMessage("Phone number can't have fewer than 10 characters")

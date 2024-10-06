@@ -8,17 +8,17 @@ namespace Job.Module.Queries
     public class CategoryQuery(ICategoryRepository catRepo) : ICategoryQuery
     {
         private readonly ICategoryRepository _catRepo = catRepo;
-        public async Task<Pagination<Category>> GetAllCategories(int page, int size)
+        public async Task<Pagination<CategoryEntity>> GetAllCategories(int page, int size)
         {
             var data = await _catRepo.GetAllAsync();
-            var paginated = new Pagination<Category>(data, page, size);
+            var paginated = new Pagination<CategoryEntity>(data, page, size);
             return paginated;
         }
 
-        public async Task<Category> GetCategoryById(int id)
+        public async Task<CategoryEntity> GetCategoryById(int id)
         {
             return await _catRepo.GetWhere(x => x.Id == id) 
-                ?? throw new EntityNotFoundException<Category>();
+                ?? throw new EntityNotFoundException<CategoryEntity>();
         }
     }
 }

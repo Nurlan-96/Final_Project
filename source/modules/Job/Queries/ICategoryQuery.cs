@@ -5,7 +5,7 @@ namespace Job.Module.Queries
 {
     public interface ICategoryQuery
     {
-        Task<Pagination<Category>> GetAllCategories(int page, int size);
-        Task<Category> GetCategoryById(int id);
+        Task<Pagination<CategoryEntity>> GetAllCategories(int page, int size);
+        Task<CategoryEntity> GetCategoryById(int id);
     }
 }

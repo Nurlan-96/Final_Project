@@ -1,12 +1,13 @@
 ﻿using Application.Response;
 using FinalProject.Domain.Entities;
+using Job.Module.Responses;
 
 namespace Job.Module
 {
     public interface IJobQuery
     {
-        Task<Pagination<JobPost>> GetAllJobs(int page, int size);
-        Task<JobPost> GetJobById(int id);
-        Task<JobPost> GetJobByCategory(int categoryId);
+        Task<Pagination<JobPostEntity>> GetAllJobs(int page, int size);
+        Task<JobPostResponse> GetJobById(int id);
+        Task<JobPostEntity> GetJobByCategory(int categoryId);
     }
 }

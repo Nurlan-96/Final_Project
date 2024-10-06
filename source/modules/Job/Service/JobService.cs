@@ -10,7 +10,7 @@ namespace Job.Module.Service
         private readonly IJobRepository _jobRepo = jobRepo;
         public async Task<bool> CreateJobPost(CreateJobCommand command)
         {   
-            JobPost newJobPost = new()
+            JobPostEntity newJobPost = new()
             {
                 Address = command.Address,
                 Description = command.Description,
@@ -34,7 +34,7 @@ namespace Job.Module.Service
         public async Task<bool> UpdateJobPost(UpdateJobCommand command)
         {
             var data = await _jobRepo.GetWhere(x => x.Id == command.JobId)
-                ?? throw new EntityNotFoundException<JobPost>();
+                ?? throw new EntityNotFoundException<JobPostEntity>();
             #region update
             data.UpdatedDate = DateTime.UtcNow;
             data.ExpirationDate = command.ExpirationDate;
@@ -55,7 +55,7 @@ namespace Job.Module.Service
         public async Task<bool> ArchiveJobPost(UpdateJobCommand command)
         {
             var data = await _jobRepo.GetWhere(x => x.Id == command.JobId)
-                ?? throw new EntityNotFoundException<JobPost>();
+                ?? throw new EntityNotFoundException<JobPostEntity>();
             #region update
             data.UpdatedDate = DateTime.UtcNow;
             data.IsDeleted = command.IsDeleted;
@@ -67,7 +67,7 @@ namespace Job.Module.Service
         public async Task<bool> DeleteJobPost(int jobPostId)
         {
             var data = await _jobRepo.GetWhere(x => x.Id == jobPostId)
-                ?? throw new EntityNotFoundException<JobPost>();
+                ?? throw new EntityNotFoundException<JobPostEntity>();
 
             _jobRepo.Delete(data);
             await _jobRepo.UnitOfWork.SaveChangesAsync();

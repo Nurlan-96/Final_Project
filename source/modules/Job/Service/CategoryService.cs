@@ -11,7 +11,7 @@ namespace Job.Module.Service
 
         public async Task<bool> CreateCategory(CreateCategoryCommand command)
         {
-            Category newCategory = new()
+            CategoryEntity newCategory = new()
             {
                 Name = command.Name,
             };
@@ -23,7 +23,7 @@ namespace Job.Module.Service
         public async Task<bool> DeleteCategory(int categoryId)
         {
             var data = await _categoryRepo.GetWhere(x => x.Id == categoryId)
-            ?? throw new EntityNotFoundException<JobPost>();
+            ?? throw new EntityNotFoundException<JobPostEntity>();
             _categoryRepo.Delete(data);
             await _categoryRepo.UnitOfWork.SaveChangesAsync();
             return true;
@@ -32,7 +32,7 @@ namespace Job.Module.Service
         public async Task<bool> UpdateCategory(UpdateCategoryCommand command)
         {
             var data = await _categoryRepo.GetWhere(x => x.Id == command.CategoryId)
-            ?? throw new EntityNotFoundException<JobPost>();
+            ?? throw new EntityNotFoundException<JobPostEntity>();
             data.UpdatedDate = DateTime.UtcNow;
             data.Name = command.Name;
             _categoryRepo.Update(data);

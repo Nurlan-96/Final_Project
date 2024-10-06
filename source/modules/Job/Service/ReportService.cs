@@ -13,7 +13,7 @@ namespace Job.Module.Service
         public async Task<bool> ArchiveReport(UpdateReportCommand command)
         {
             var data = await _reportRepo.GetWhere(x => x.Id == command.ReportId)
-            ?? throw new EntityNotFoundException<JobPost>();
+            ?? throw new EntityNotFoundException<JobPostEntity>();
             #region update
             data.UpdatedDate = DateTime.UtcNow;
             data.IsDeleted = command.IsDeleted;

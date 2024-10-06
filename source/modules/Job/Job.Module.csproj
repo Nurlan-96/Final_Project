@@ -9,10 +9,11 @@
   <ItemGroup>
     <ProjectReference Include="..\..\FinalProject.Application\FinalProject.Application.csproj" />
     <ProjectReference Include="..\..\FinalProject.SharedKernel.Domain\FinalProject.SharedKernel.Domain.csproj" />
+    <ProjectReference Include="..\Company.Module\Company.Module.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Responses\" />
+    <PackageReference Include="AutoMapper" Version="13.0.1" />
   </ItemGroup>
 
 </Project>

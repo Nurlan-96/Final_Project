@@ -105,7 +105,7 @@ namespace Company.Module.Services
                 }
             }
             var updatedData = await _companyRepo.GetWhere(x => x.Id == command.CompanyId)
-            ?? throw new EntityNotFoundException<JobPost>();
+            ?? throw new EntityNotFoundException<JobPostEntity>();
             #region update
             data.UpdatedDate = DateTime.UtcNow;
             data.Address = command.Address;

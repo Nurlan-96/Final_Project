@@ -1,15 +1,26 @@
 ﻿using Domain.Exceptions;
+using FinalProject.Application.Usecase;
 using FinalProject.Domain.Entities;
 using FinalProject.Domain.Reporistories;
+using FinalProject.Infrastructure.DAL;
+using IdentityModule.Queries;
 using Job.Module.Commands;
+using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json.Linq;
 
 namespace Job.Module.Service
 {
-    public class JobService(IJobRepository jobRepo) : IJobService
+    public class JobService(AppDbContext context, IJobRepository jobRepo, IUserQueries userQueries, ICompanyRepository companyRepository) : IJobService
     {
+        private readonly AppDbContext _context = context;
         private readonly IJobRepository _jobRepo = jobRepo;
+        private readonly IUserQueries _userQueries = userQueries;
+        private readonly ICompanyRepository _companyRepo = companyRepository;
         public async Task<bool> CreateJobPost(CreateJobCommand command)
-        {   
+        {
+            var data = await _companyRepo.GetWhere(x => x.Id == command.CompanyId)
+            ?? throw new EntityNotFoundException<CompanyEntity>();
+
             JobPostEntity newJobPost = new()
             {
                 Address = command.Address,
@@ -21,7 +32,7 @@ namespace Job.Module.Service
                 Education = command.Education,
                 Experience = command.Experience,
                 EmploymentType = command.EmploymentType,
-                ExpirationDate = command.ExpirationDate,
+                ExpirationDate = DateTime.SpecifyKind(command.ExpirationDate, DateTimeKind.Utc),
                 City = command.City,
                 CompanyId = command.CompanyId,
                 IsDeleted = false,
@@ -72,6 +83,18 @@ namespace Job.Module.Service
             _jobRepo.Delete(data);
             await _jobRepo.UnitOfWork.SaveChangesAsync();
             return true;
+        }
+        public IEnumerable<JobPostEntity> SearchJobs(string query)
+        {
+            if (string.IsNullOrEmpty(query))
+            {
+                return _context.JobPosts.ToList();
+            }
+
+            return _context.JobPosts
+                           .Where(j => j.Name.Contains(query, StringComparison.OrdinalIgnoreCase) ||
+                                       j.Description.Contains(query, StringComparison.OrdinalIgnoreCase))
+                           .ToList();
         }
     }
 }

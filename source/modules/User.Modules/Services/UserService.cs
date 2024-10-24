@@ -1,20 +1,19 @@
 ﻿using CryptoHelper;
 using Domain.Exceptions;
-using FinalProject.Domain.Exceptions;
+using EmailModule.Manager;
 using FinalProject.Domain.Entities;
+using FinalProject.Domain.Exceptions;
 using FinalProject.Domain.Reporistories;
+using FinalProject.SharedKernel.Domain.Settings;
+using Identity.Module.Auth;
 using Identity.Module.Response;
 using IdentityModule.Queries;
+using Microsoft.Extensions.Options;
+using SharedKernel.Domain;
+using System.Security.Authentication;
 using User.Module.Commands;
 using UserModule.Commands;
-using Identity.Module.Auth;
-using System.Security.Authentication;
-using SharedKernel.Domain;
-using EmailModule.Manager;
-using System.Runtime;
 using UserModule.Managers;
-using FinalProject.SharedKernel.Domain.Settings;
-using Microsoft.Extensions.Options;
 
 namespace User.Module.Services
 {
@@ -151,6 +150,27 @@ namespace User.Module.Services
                 throw new AuthenticationException("Token is invalid for this user");
             }
 
+            return true;
+        }
+        public async Task<bool> EditUser(UpdateUserCommand command, string token)
+        {
+            var user  = await _userQueries.FindByRefreshToken(token)
+                ?? throw new EntityNotFoundException<UserEntity>();
+
+            user.Fullname = command.Fullname;
+            user.Email = command.Email;
+            user.PhoneNumber = command.PhoneNumber;
+
+            _userRepository.Update(user);
+            await _userRepository.UnitOfWork.SaveChangesAsync();
+            return true;
+        }
+        public async Task<bool> BanUser(int id)
+        {
+            var user = await _userQueries.FindAsync(id);
+            user.IsBanned = true;
+            _userRepository.Update(user);
+            await _userRepository.UnitOfWork.SaveChangesAsync();
             return true;
         }
     }

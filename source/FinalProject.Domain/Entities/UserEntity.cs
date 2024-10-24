@@ -12,7 +12,9 @@ namespace FinalProject.Domain.Entities
         public int RoleId { get; set; }
         public Role Role { get; set; }
         public int? CVJobId { get; set; }
-        public CVJob? CVJob { get; set; }
+        public CVJobEntity? CVJob { get; set; }
+        public int? CVEntityId {  get; set; }
+        public CVEntity? CVEntity { get; set; }  
         public bool IsBanned { get; set; }
         public string? OTPCode { get; set; }
         public bool AllowChangeWithOTP { get; set; }

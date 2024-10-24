@@ -23,7 +23,6 @@ namespace FinalProject.Infrastructure.Configurations
             
             builder.Property(c => c.Address).HasColumnName("address");
             builder.Property(c => c.ExpectedSalary).HasColumnName("expctedsalary");
-            builder.Property(c => c.EmploymentType).HasColumnName("employment_type");
 
             builder.Property(c => c.CreatedDate).HasColumnName("created_date");
             builder.Property(c => c.UpdatedDate).HasColumnName("update_date");

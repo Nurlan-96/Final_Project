@@ -1,4 +1,7 @@
-﻿namespace Job.Module.Commands
+﻿using FinalProject.Domain.Constants;
+using FinalProject.Domain.Entities;
+
+namespace Job.Module.Commands
 {
     public class CreateCategoryCommand
     {

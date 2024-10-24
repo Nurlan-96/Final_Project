@@ -16,9 +16,9 @@ namespace FinalProject.Infrastructure.DAL
         public DbSet<CategoryEntity> Categories { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<UserEntity> Users { get; set; }
-        public DbSet<Report> Reports { get; set; }
+        public DbSet<ReportEntity> Reports { get; set; }
         public DbSet<UserAppliedJob> UserAppliedJobs { get; set; }
-        public DbSet<CVJob> CVJobs { get; set; }
+        public DbSet<CVJobEntity> CVJobs { get; set; }
         public DbSet<CVEntity> CVEntities { get; set; }
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)

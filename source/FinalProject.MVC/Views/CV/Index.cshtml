@@ -1,0 +1,111 @@
+﻿@using FinalProject.Domain.Entities
+@using Job.Module.Responses
+@model CVResponse
+@{
+    ViewData["Title"] = "CV Index";
+}
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header bg-secondary text-white text-center">
+                    <h4>{{ @Model.Fullname }}'s CV</h4>
+                </div>
+                <div class="card-body">
+                    <!-- Full Name -->
+                    <div class="mb-3">
+                        <h5><strong>Full Name:</strong></h5>
+                        <p>{{ @Model.Fullname }}</p>
+                    </div>
+
+                    <!-- Email -->
+                    <div class="mb-3">
+                        <h5><strong>Email:</strong></h5>
+                        <p>{{ @Model.Email }}</p>
+                    </div>
+
+                    <!-- Phone Number -->
+                    <div class="mb-3">
+                        <h5><strong>Phone Number:</strong></h5>
+                        <p>{{ @Model.PhoneNumber }}</p>
+                    </div>
+
+                    <!-- About Me -->
+                    <div class="mb-3">
+                        <h5><strong>About Me:</strong></h5>
+                        <p>{{ @Model.AboutMe }}</p>
+                    </div>
+
+                    <!-- Address -->
+                    <div class="mb-3">
+                        <h5><strong>Address:</strong></h5>
+                        <p>{{ @Model.Address }}</p>
+                    </div>
+
+                    <!-- Expected Salary -->
+                    <div class="mb-3">
+                        <h5><strong>Expected Salary:</strong></h5>
+                        <p>${{ @Model.ExpectedSalary }}</p>
+                    </div>
+
+                    <!-- Education -->
+                    <div class="mb-3">
+                        <h5><strong>Education:</strong></h5>
+                        <p>{{ @Model.Education.ToString() }}</p>
+                    </div>
+
+                    <!-- City -->
+                    <div class="mb-3">
+                        <h5><strong>City:</strong></h5>
+                        <p>{{ @Model.City.ToString() }}</p>
+                    </div>
+
+                    <!-- Experience -->
+                    <div class="mb-3">
+                        <h5><strong>Experience Level:</strong></h5>
+                        <p>{{ @Model.Experience.ToString() }}</p>
+                    </div>
+
+                    <!-- Previous Jobs Section -->
+                    <h5><strong>Previous Jobs</strong></h5>
+                    <a asp-controller="cv" asp-action="createcvjob">Add Previous Jobs</a>
+                    <div id="jobs-container">
+                        @if (Model.CVJobPosts != null && Model.CVJobPosts.Any())
+                        {
+                            <ul class="list-group mb-3">
+                                @foreach (var job in Model.CVJobPosts)
+                                {
+                                    <li class="list-group-item">
+                                        <h6><strong>Job Title:</strong> {{ @job.Name }}</h6>
+                                        <p><strong>Company:</strong> {{ @job.CompanyName }}</p>
+                                        <p><strong>Desciption:</strong> {{ @job.Description }}</p>
+                                        <p><strong>StartDate:</strong> {{ @job.StartDate.ToString("dd.MMM.yyyy") }}</p>
+                                        <p><strong>EndDate:</strong> {{ @job.EndDate?.ToString("dd.MMM.yyyy") }}</p>
+                                        <a asp-action="delete" asp-controller="cvjob" class="btn btn-secondary w-100">Create CV</a>
+                                    </li>
+                                }
+                            </ul>
+                        }
+                        else
+                        {
+                            <p>No previous jobs listed.</p>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Styles -->
+<style>
+    .card-header {
+        background-color: var(--secondary);
+        color: white;
+    }
+
+    .list-group-item {
+        border: none;
+        padding: 15px;
+    }
+</style>

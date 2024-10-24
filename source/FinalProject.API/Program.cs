@@ -43,8 +43,14 @@ builder.Services.AddScoped<IJobService, JobService>();
 builder.Services.AddScoped<ICompanyService, CompanyService>();
 builder.Services.AddScoped<ICompanyRepository, CompanyRepository>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<ICVService, CVService>();
+builder.Services.AddScoped<ICVJobService, CVJobService>();
+builder.Services.AddScoped<ICVRepository, CVRepository>();
+builder.Services.AddScoped<ICVJobRepository, CVJobRepository>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<IJobQuery, JobQuery>();
+builder.Services.AddScoped<ICVQuery, CVQuery>();
+builder.Services.AddScoped<ICVJobQuery, CVJobQuery>();
 #region User/Authorization
 builder.Services.AddScoped<IUserManager, UserManager>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();

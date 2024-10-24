@@ -25,6 +25,7 @@ namespace FinalProject.API.Controllers
         {
             return Ok(await _jobQuery.GetJobById(id));
         }        
+
         [HttpGet("category")]
         public async Task<IActionResult> GetByCategory([FromForm] int id)
         {
@@ -32,7 +33,7 @@ namespace FinalProject.API.Controllers
         }
 
         [HttpPost("Create")]
-        public async Task<IActionResult> PostJob([FromBody] CreateJobCommand command)
+        public async Task<IActionResult> PostJob([FromForm] CreateJobCommand command)
         {
             return Ok(await _jobService.CreateJobPost(command));
         }

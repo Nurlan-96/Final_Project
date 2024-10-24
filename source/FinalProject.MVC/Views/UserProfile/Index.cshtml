@@ -1,5 +1,6 @@
-﻿@using Identity.Module
-@Model UserResponse
+﻿@using FinalProject.MVC.ViewModels
+@using Identity.Module
+@model HomeVM
 @{
     ViewData["Title"] = "Profile Page";
 }
@@ -14,12 +15,17 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-8">
-                                <h5 class="mb-3">@Model.Fullname</h5>
-                                <p><strong>Email:</strong>@Model.Email</p>
-                                <p><strong>Number:</strong> @Model.PhoneNumber</p>
-                                <p><strong>Member Since:</strong> @Model.CreatedDate</p>
-                                <a href="edit-profile.html" class="btn btn-secondary">Edit Profile</a>
-                            </div>
+                                <h5 class="mb-3">@Model.User.Fullname</h5>
+                                <p><strong>Email:</strong>@Model.User.Email</p>
+                                <p><strong>Number:</strong> @Model.User.PhoneNumber</p>
+                                <p><strong>Member Since:</strong> @Model.User.CreatedDate</p>
+                            <a asp-action="edituser" asp-controller="userprofile" class="btn btn-secondary">Edit Profile</a>
+                            <a asp-action="index" asp-controller="cv" class="btn btn-secondary @(Model.User.CVEntityId != null ? "" : "hidden")">Go to your CV</a>
+                            <a asp-action="create" asp-controller="cv" class="btn btn-secondary @(Model.User.CVEntityId == null ? "" : "hidden")">Create CV</a>
+                            <a asp-action="index" asp-controller="company" class="btn btn-primary @(Model.User.CompanyId != null ? "" : "hidden")">Go to your Company</a>
+                            <a asp-action="create" asp-controller="company" class="btn btn-primary @(Model.User.CompanyId == null ? "" : "hidden")">Create Company</a>
+                            <a asp-action="index" asp-controller="dash" asp-area="Admin" class="btn btn-primary @(Model.User.Role.Name == "SuperAdmin" ? "" : "hidden")">Go to Admin Page</a>
+                        </div>
                         </div>
                     </div>
                 </div>

@@ -4,7 +4,7 @@ namespace FinalProject.Domain.Entities
 {
     public class UserAppliedJob : BaseEntity
     {
-        public int UserId { get; set; }
+        public int? UserId { get; set; }
         public UserEntity User { get; set; }
 
         private readonly List<JobPostEntity> _jobPosts;

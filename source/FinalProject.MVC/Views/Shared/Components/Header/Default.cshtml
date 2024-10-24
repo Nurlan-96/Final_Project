@@ -1,6 +1,4 @@
-﻿@model IdentityModule.Response.UserResponse
-
-<div class="container-xxl bg-white p-0">
+﻿<div class="container-xxl bg-white p-0">
     <nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
         <a asp-action="index" asp-controller="home" class="navbar-brand d-flex align-items-center text-center py-0 px-4 px-lg-5">
             <h1 class="m-0 text-primary">WeWork</h1>
@@ -15,11 +13,17 @@
                 <a asp-action="index" asp-controller="contact" class="nav-item nav-link">Contact</a>
             </div>
 
-            @if (Model != null && !string.IsNullOrEmpty(Model.Fullname))
+            @if (ViewBag.UserResponse != null)
             {
-                <a asp-action="index" asp-controller="userprofile" asp-route-id="@Model.Id" class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block">
-                    @Model.Fullname<i class="fa fa-arrow-right ms-3"></i>
-                </a>
+                <div class="user-container" style="position: relative; display: inline-block;">
+                    <a asp-action="index" asp-controller="userprofile" asp-route-id="@ViewBag.UserResponse.Id" class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block login">
+                        @ViewBag.UserResponse.Fullname<i class="fa fa-arrow-right ms-3"></i>
+                    </a>
+                    <a asp-action="logout" asp-controller="authentication" class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block logout"
+                       style="position: absolute; top: 100%; left: 0; visibility: hidden; opacity: 0; transform: translateY(10px); transition: transform 0.3s ease, opacity 0.3s ease, visibility 0.3s ease;">
+                        Logout <i class="fa fa-arrow-right ms-3"></i>
+                    </a>
+                </div>
             }
             else
             {

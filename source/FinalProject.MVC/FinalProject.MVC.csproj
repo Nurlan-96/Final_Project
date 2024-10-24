@@ -9,6 +9,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.8" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.8" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.5" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.8" />
   </ItemGroup>
 
@@ -16,6 +17,12 @@
     <ProjectReference Include="..\FinalProject.Infrastructure\FinalProject.Infrastructure.csproj" />
     <ProjectReference Include="..\modules\Job\Job.Module.csproj" />
     <ProjectReference Include="..\modules\User.Modules\User.Module.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Areas\Admin\Data\" />
+    <Folder Include="Areas\Admin\Models\" />
+    <Folder Include="Views\Category\" />
   </ItemGroup>
 
 </Project>

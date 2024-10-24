@@ -13,6 +13,8 @@ namespace User.Module.Services
         Task<bool> ForgotPasswordSendOTP(ForgotPasswordSendOTPCommand request, CancellationToken cancellationToken);
         Task<bool> ResetPassword(ResetPasswordCommand request, CancellationToken cancellationToken);
         Task<bool> ConfirmOTP(ConfirmOTPCommand request, CancellationToken cancellationToken);
+        Task<bool> EditUser(UpdateUserCommand command, string refreshToken);
+
 
 
 

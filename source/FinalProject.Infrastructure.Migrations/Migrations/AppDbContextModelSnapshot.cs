@@ -59,10 +59,6 @@ namespace FinalProject.Infrastructure.Migrations.Migrations
                         .HasColumnType("text")
                         .HasColumnName("email");
 
-                    b.Property<int>("EmploymentType")
-                        .HasColumnType("integer")
-                        .HasColumnName("employment_type");
-
                     b.Property<int>("ExpectedSalary")
                         .HasColumnType("integer")
                         .HasColumnName("expctedsalary");
@@ -86,6 +82,9 @@ namespace FinalProject.Infrastructure.Migrations.Migrations
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("update_date");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("integer");
+
                     b.HasKey("Id");
 
                     b.HasIndex("Email")
@@ -94,13 +93,16 @@ namespace FinalProject.Infrastructure.Migrations.Migrations
                     b.ToTable("cventity", (string)null);
                 });
 
-            modelBuilder.Entity("FinalProject.Domain.Entities.CVJob", b =>
+            modelBuilder.Entity("FinalProject.Domain.Entities.CVJobEntity", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("CVEntityId")
+                        .HasColumnType("integer");
 
                     b.Property<int>("City")
                         .HasColumnType("integer")
@@ -141,6 +143,8 @@ namespace FinalProject.Infrastructure.Migrations.Migrations
                         .HasColumnName("update_date");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CVEntityId");
 
                     b.ToTable("cvjob", (string)null);
                 });
@@ -185,40 +189,66 @@ namespace FinalProject.Infrastructure.Migrations.Migrations
 
                     b.Property<string>("Address")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)")
+                        .HasColumnName("address");
 
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_date");
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)")
+                        .HasColumnName("description");
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)")
+                        .HasColumnName("email");
 
                     b.Property<string>("Image")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("text")
+                        .HasColumnName("image");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("boolean");
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_deleted");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)")
+                        .HasColumnName("name");
 
                     b.Property<string>("PhoneNumber")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("text")
+                        .HasColumnName("phone_number");
 
                     b.Property<DateTime?>("UpdatedDate")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("update_date");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("integer")
+                        .HasColumnName("user_id");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Companies");
+                    b.HasIndex("Email")
+                        .IsUnique();
+
+                    b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
+
+                    b.ToTable("company", (string)null);
                 });
 
             modelBuilder.Entity("FinalProject.Domain.Entities.JobPostEntity", b =>
@@ -303,7 +333,7 @@ namespace FinalProject.Infrastructure.Migrations.Migrations
                     b.ToTable("jobpost", (string)null);
                 });
 
-            modelBuilder.Entity("FinalProject.Domain.Entities.Report", b =>
+            modelBuilder.Entity("FinalProject.Domain.Entities.ReportEntity", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -312,27 +342,40 @@ namespace FinalProject.Infrastructure.Migrations.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_date");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
 
-                    b.Property<int>("JobPostId")
+                    b.Property<int>("JobPostEntityId")
                         .HasColumnType("integer");
+
+                    b.Property<int>("JobPostId")
+                        .HasColumnType("integer")
+                        .HasColumnName("job_post_id");
 
                     b.Property<string>("Reason")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)")
+                        .HasColumnName("reason");
 
                     b.Property<DateTime?>("UpdatedDate")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("update_date");
 
                     b.Property<int>("UserId")
-                        .HasColumnType("integer");
+                        .HasColumnType("integer")
+                        .HasColumnName("user_id");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Reports");
+                    b.HasIndex("JobPostEntityId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("report", (string)null);
                 });
 
             modelBuilder.Entity("FinalProject.Domain.Entities.RoleAggregate.Role", b =>
@@ -363,19 +406,19 @@ namespace FinalProject.Infrastructure.Migrations.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedDate = new DateTime(2024, 10, 5, 18, 36, 15, 398, DateTimeKind.Utc).AddTicks(5596),
+                            CreatedDate = new DateTime(2024, 10, 24, 18, 22, 41, 159, DateTimeKind.Utc).AddTicks(8756),
                             Name = "SuperAdmin"
                         },
                         new
                         {
                             Id = 2,
-                            CreatedDate = new DateTime(2024, 10, 5, 18, 36, 15, 398, DateTimeKind.Utc).AddTicks(5603),
+                            CreatedDate = new DateTime(2024, 10, 24, 18, 22, 41, 159, DateTimeKind.Utc).AddTicks(8763),
                             Name = "User"
                         },
                         new
                         {
                             Id = 3,
-                            CreatedDate = new DateTime(2024, 10, 5, 18, 36, 15, 398, DateTimeKind.Utc).AddTicks(5604),
+                            CreatedDate = new DateTime(2024, 10, 24, 18, 22, 41, 159, DateTimeKind.Utc).AddTicks(8765),
                             Name = "Company"
                         });
                 });
@@ -394,7 +437,8 @@ namespace FinalProject.Infrastructure.Migrations.Migrations
                     b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<int>("UserId")
+                    b.Property<int?>("UserId")
+                        .IsRequired()
                         .HasColumnType("integer")
                         .HasColumnName("user_id");
 
@@ -417,6 +461,9 @@ namespace FinalProject.Infrastructure.Migrations.Migrations
                         .HasColumnType("boolean")
                         .HasColumnName("allow_change_with_otp");
 
+                    b.Property<int?>("CVEntityId")
+                        .HasColumnType("integer");
+
                     b.Property<int?>("CVJobId")
                         .HasColumnType("integer")
                         .HasColumnName("cv_job_id");
@@ -427,7 +474,8 @@ namespace FinalProject.Infrastructure.Migrations.Migrations
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("text")
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)")
                         .HasColumnName("email");
 
                     b.Property<string>("Fullname")
@@ -472,6 +520,8 @@ namespace FinalProject.Infrastructure.Migrations.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CVEntityId");
+
                     b.HasIndex("CVJobId");
 
                     b.HasIndex("Email")
@@ -492,14 +542,34 @@ namespace FinalProject.Infrastructure.Migrations.Migrations
                         {
                             Id = 1,
                             AllowChangeWithOTP = false,
-                            CreatedDate = new DateTime(2024, 10, 5, 18, 36, 15, 398, DateTimeKind.Utc).AddTicks(5745),
+                            CreatedDate = new DateTime(2024, 10, 24, 18, 22, 41, 159, DateTimeKind.Utc).AddTicks(8938),
                             Email = "alex@example.com",
                             Fullname = "Alex Mercer",
                             IsBanned = false,
-                            PasswordHash = "AQAAAAEACSfAAAAAEPYQGGuZlIcd6EUJdaLvEw+IXabddq3DFR94LYtmTpNJwg5C7vr8G4jP1DZgMn8XqA==",
+                            PasswordHash = "AQAAAAEACSfAAAAAEDbXTZHfMwf+8dWNcp63B2tr8cYIdFOZQmdTt2OouJ5/CP5FV/Eoza1lbiZPkGh11Q==",
                             PhoneNumber = "000000",
                             RoleId = 1
                         });
+                });
+
+            modelBuilder.Entity("FinalProject.Domain.Entities.CVJobEntity", b =>
+                {
+                    b.HasOne("FinalProject.Domain.Entities.CVEntity", "CVEntity")
+                        .WithMany("CVJobPosts")
+                        .HasForeignKey("CVEntityId");
+
+                    b.Navigation("CVEntity");
+                });
+
+            modelBuilder.Entity("FinalProject.Domain.Entities.CompanyEntity", b =>
+                {
+                    b.HasOne("FinalProject.Domain.Entities.UserEntity", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("FinalProject.Domain.Entities.JobPostEntity", b =>
@@ -525,6 +595,25 @@ namespace FinalProject.Infrastructure.Migrations.Migrations
                     b.Navigation("Company");
                 });
 
+            modelBuilder.Entity("FinalProject.Domain.Entities.ReportEntity", b =>
+                {
+                    b.HasOne("FinalProject.Domain.Entities.JobPostEntity", "JobPostEntity")
+                        .WithMany()
+                        .HasForeignKey("JobPostEntityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("FinalProject.Domain.Entities.UserEntity", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("JobPostEntity");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("FinalProject.Domain.Entities.UserAppliedJob", b =>
                 {
                     b.HasOne("FinalProject.Domain.Entities.UserEntity", "User")
@@ -538,7 +627,11 @@ namespace FinalProject.Infrastructure.Migrations.Migrations
 
             modelBuilder.Entity("FinalProject.Domain.Entities.UserEntity", b =>
                 {
-                    b.HasOne("FinalProject.Domain.Entities.CVJob", "CVJob")
+                    b.HasOne("FinalProject.Domain.Entities.CVEntity", "CVEntity")
+                        .WithMany()
+                        .HasForeignKey("CVEntityId");
+
+                    b.HasOne("FinalProject.Domain.Entities.CVJobEntity", "CVJob")
                         .WithMany()
                         .HasForeignKey("CVJobId");
 
@@ -548,9 +641,16 @@ namespace FinalProject.Infrastructure.Migrations.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.Navigation("CVEntity");
+
                     b.Navigation("CVJob");
 
                     b.Navigation("Role");
+                });
+
+            modelBuilder.Entity("FinalProject.Domain.Entities.CVEntity", b =>
+                {
+                    b.Navigation("CVJobPosts");
                 });
 
             modelBuilder.Entity("FinalProject.Domain.Entities.CategoryEntity", b =>

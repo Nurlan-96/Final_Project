@@ -2,6 +2,8 @@
 using Domain.Exceptions;
 using FinalProject.Domain.Entities;
 using FinalProject.Domain.Reporistories;
+using FinalProject.Infrastructure.DAL;
+using Microsoft.EntityFrameworkCore;
 
 namespace Job.Module.Queries
 {

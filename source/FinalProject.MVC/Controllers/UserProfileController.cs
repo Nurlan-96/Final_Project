@@ -1,17 +1,23 @@
 ﻿using AutoMapper;
+using FinalProject.Domain.Entities.RoleAggregate;
+using FinalProject.MVC.ViewModels;
 using IdentityModule.Queries;
 using IdentityModule.Response;
 using Microsoft.AspNetCore.Mvc;
+using User.Module.Commands;
+using User.Module.Services;
 
 namespace FinalProject.MVC.Controllers
 {
-    public class UserProfileController(IUserQueries userQuery, IMapper mapper) : Controller
+    public class UserProfileController(IUserQueries userQuery, IUserService userService, IMapper mapper) : Controller
     {
         private readonly IUserQueries _userQuery = userQuery;
+        private readonly IUserService _userService = userService;
+        private readonly IMapper _mapper = mapper;
 
         public async Task<IActionResult> Index()
         {
-            var refreshToken = HttpContext.Request.Cookies["refreshToken"];
+            var refreshToken = HttpContext.Request.Cookies["token"];
             if (string.IsNullOrEmpty(refreshToken))
             {
                 return RedirectToAction("login", "authentication");
@@ -24,14 +30,34 @@ namespace FinalProject.MVC.Controllers
                 return RedirectToAction("login", "authentication");
             }
 
-            var mapped = new UserResponse
+            var data = new HomeVM
             {
-                PhoneNumber = user.PhoneNumber,
-                Email = user.Email,
-                Id = user.Id
+                User = new()
             };
 
-            return View(mapped);
+            data.User = _mapper.Map<UserResponse>(user);
+            data.User.CVEntityId = user.CVEntityId;
+
+            return View(data);
         }
+
+        public async Task<IActionResult> EditUser()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditUser(UpdateUserCommand command)
+        {
+            var refreshToken = HttpContext.Request.Cookies["token"];
+            if (!ModelState.IsValid)
+            {
+                return View(command);
+            }
+
+            await _userService.EditUser(command, refreshToken);
+            return RedirectToAction("Index");
+        }
+
     }
 }

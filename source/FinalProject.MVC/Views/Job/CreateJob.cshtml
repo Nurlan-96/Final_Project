@@ -1,0 +1,128 @@
+﻿@using FinalProject.Domain.Constants
+@using Job.Module.Commands
+@model CreateJobCommand
+
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h3>Create a Job Post</h3>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        <!-- Job Name -->
+                        <div class="mb-3">
+                            <label for="job-name" class="form-label">Job Title</label>
+                            <input asp-for="Name" type="text" class="form-control" placeholder="Enter job title">
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+
+                        <!-- Job Description -->
+                        <div class="mb-3">
+                            <label for="description" class="form-label">Description</label>
+                            <textarea asp-for="Description" class="form-control" placeholder="Enter job description"></textarea>
+                            <span asp-validation-for="Description" class="text-danger"></span>
+                        </div>
+
+                        <!-- Job Requirements -->
+                        <div class="mb-3">
+                            <label for="requirements" class="form-label">Requirements</label>
+                            <textarea asp-for="Requirements" class="form-control" placeholder="Enter job requirements"></textarea>
+                            <span asp-validation-for="Requirements" class="text-danger"></span>
+                        </div>
+
+                        <!-- Salary -->
+                        <div class="mb-3">
+                            <label for="salary" class="form-label">Salary</label>
+                            <input asp-for="Salary" type="number" class="form-control" placeholder="Enter salary">
+                            <span asp-validation-for="Salary" class="text-danger"></span>
+                        </div>
+
+                        <!-- Address -->
+                        <div class="mb-3">
+                            <label for="address" class="form-label">Address</label>
+                            <input asp-for="Address" type="text" class="form-control" placeholder="Enter job location address">
+                            <span asp-validation-for="Address" class="text-danger"></span>
+                        </div>
+
+                        <!-- Category -->
+                        <div class="mb-3">
+                            <label for="category" class="form-label">Category</label>
+                            <select asp-for="CategoryId" class="form-select">
+                                <option value="">Select category</option>
+                                @foreach (var category in @ViewBag.Categories)
+                                {
+                                    <option value="@category.Id">@category.Name</option>
+                                }
+                            </select>
+                            <span asp-validation-for="CategoryId" class="text-danger"></span>
+                        </div>
+
+                        <!-- Education (Enum) -->
+                        <div class="mb-3">
+                            <label for="education" class="form-label">Education</label>
+                            <select asp-for="Education" class="form-select">
+                                <option value="">Select education level</option>
+                                @foreach (var education in Enum.GetValues(typeof(EducationEnum)))
+                                {
+                                    <option value="@education">@education</option>
+                                }
+                            </select>
+                            <span asp-validation-for="Education" class="text-danger"></span>
+                        </div>
+
+                        <!-- Experience (Enum) -->
+                        <div class="mb-3">
+                            <label for="experience" class="form-label">Experience Level</label>
+                            <select asp-for="Experience" class="form-select">
+                                <option value="">Select experience level</option>
+                                @foreach (var experience in Enum.GetValues(typeof(ExperienceEnum)))
+                                {
+                                    <option value="@experience">@experience</option>
+                                }
+                            </select>
+                            <span asp-validation-for="Experience" class="text-danger"></span>
+                        </div>
+
+                        <!-- Employment Type (Enum) -->
+                        <div class="mb-3">
+                            <label for="employment-type" class="form-label">Employment Type</label>
+                            <select asp-for="EmploymentType" class="form-select">
+                                <option value="">Select employment type</option>
+                                @foreach (var employmentType in Enum.GetValues(typeof(EmploymentTypeEnum)))
+                                {
+                                    <option value="@employmentType">@employmentType</option>
+                                }
+                            </select>
+                            <span asp-validation-for="EmploymentType" class="text-danger"></span>
+                        </div>
+
+                        <!-- Expiration Date -->
+                        <div class="mb-3">
+                            <label for="expiration-date" class="form-label">Expiration Date</label>
+                            <input asp-for="ExpirationDate" type="date" class="form-control">
+                            <span asp-validation-for="ExpirationDate" class="text-danger"></span>
+                        </div>
+
+                        <!-- City (Enum) -->
+                        <div class="mb-3">
+                            <label for="city" class="form-label">City</label>
+                            <select asp-for="City" class="form-select">
+                                <option value="">Select city</option>
+                                @foreach (var city in Enum.GetValues(typeof(CityEnum)))
+                                {
+                                    <option value="@city">@city</option>
+                                }
+                            </select>
+                            <span asp-validation-for="City" class="text-danger"></span>
+                        </div>
+                        <input type="hidden" asp-for="CompanyId" />
+                        <!-- Submit Button -->
+                        <button type="submit" class="btn btn-primary w-100">Submit Job Post</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

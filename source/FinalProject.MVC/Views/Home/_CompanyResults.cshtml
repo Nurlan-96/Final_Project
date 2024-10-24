@@ -1,0 +1,9 @@
+﻿@using FinalProject.Domain.Entities
+@model IEnumerable<CompanyEntity>
+
+@foreach (var company in Model)
+{
+    <div class="category-item p-4 mb-4">
+        <h5>@company.Name</h5>
+    </div>
+}

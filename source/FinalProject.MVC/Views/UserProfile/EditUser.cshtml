@@ -1,0 +1,38 @@
+﻿@using User.Module.Commands
+@model UpdateUserCommand
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card my-5">
+                <div class="card-header bg-secondary text-white text-center">
+                    <h4>Edit User</h4>
+                </div>
+                <div class="card-body">
+                    <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+                    <form method="post">
+                        @* <input asp-for=Id type="hidden" /> *@
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Full Name</label>
+                            <input asp-for="Fullname" type="text" class="form-control" placeholder="Enter your full name">
+                            <span asp-validation-for="Fullname" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email address</label>
+                            <input asp-for="Email" type="email" class="form-control" placeholder="Enter your email">
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label for="phone" class="form-label">Phone Number</label>
+                            <input asp-for="PhoneNumber" type="number" class="form-control" placeholder="Enter your phone number">
+                            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                        </div>
+                        <button type="submit" class="btn btn-secondary w-100">Update</button>
+                    </form>
+                    <div class="text-center mt-3">
+                        <a asp-action="index" asp-controller="userprofile" class="text-secondary">Cancel</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

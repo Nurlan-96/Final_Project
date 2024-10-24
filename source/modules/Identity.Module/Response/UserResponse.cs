@@ -8,5 +8,8 @@
 		public string PhoneNumber { get; set; }
         public DateTime CreatedDate { get; set; }
         public RoleResponse Role { get; set; }
-	}
+        public int? CVEntityId { get; set; }
+		public int?CompanyId { get; set; }
+
+    }
 }

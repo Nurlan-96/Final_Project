@@ -1,15 +1,18 @@
-﻿using FinalProject.Domain.Entities;
+﻿using Domain.Exceptions;
+using FinalProject.Domain.Entities;
 using FinalProject.Domain.Reporistories;
 using FinalProject.Infrastructure.DAL;
 using Identity.Module.Auth;
 using IdentityModule.Queries;
 using Job.Module;
+using Job.Module.Commands;
+using Job.Module.Service;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace FinalProject.MVC.Controllers
 {
-    public class JobController(ILogger<JobController> logger, AppDbContext context, IJobQuery jobQuery, IUserManager userManager, IUserRepository userRepo, IJobRepository jobRepo) : Controller
+    public class JobController(ILogger<JobController> logger, AppDbContext context, IJobQuery jobQuery, IUserManager userManager, IUserRepository userRepo, IJobRepository jobRepo, IJobService jobService, IUserQueries userQueries) : Controller
     {
         private readonly ILogger<JobController> _logger = logger;
         private readonly AppDbContext _context = context;
@@ -17,6 +20,8 @@ namespace FinalProject.MVC.Controllers
         private readonly IJobRepository _jobRepo = jobRepo;
         private readonly IUserRepository _userRepository = userRepo;
         private readonly IUserManager _userManager = userManager;
+        private readonly IJobService _jobService = jobService;
+        private readonly IUserQueries _userQueries = userQueries;
 
         public async Task<IActionResult> Index(int id)
         {
@@ -25,9 +30,15 @@ namespace FinalProject.MVC.Controllers
         }
         public async Task<IActionResult> Apply(int jobId)
         {
-            var userId = _userManager.GetCurrentUserId();
+            var refreshToken = HttpContext.Request.Cookies["token"];
+            if (string.IsNullOrEmpty(refreshToken))
+            {
+                return RedirectToAction("login", "authentication");
+            }
+
+            var user = await _userQueries.FindByRefreshToken(refreshToken);
+
             var job = await _jobRepo.GetAsync(x => x.Id == jobId);
-            var user = await _userRepository.GetAsync(x=> x.Id == userId);
 
             if (job == null || user == null)
             {
@@ -35,11 +46,11 @@ namespace FinalProject.MVC.Controllers
             }
 
             var userAppliedJob = await _context.UserAppliedJobs
-                .FirstOrDefaultAsync(uaj => uaj.UserId == userId);
+                .FirstOrDefaultAsync(uaj => uaj.UserId == user.Id);
 
             if (userAppliedJob == null)
             {
-                userAppliedJob = new UserAppliedJob { UserId = userId, User = user };
+                userAppliedJob = new UserAppliedJob { UserId = user.Id, User = user };
                 userAppliedJob.AddJobPost(job);
                 _context.UserAppliedJobs.Add(userAppliedJob);
             }
@@ -54,6 +65,23 @@ namespace FinalProject.MVC.Controllers
 
             await _context.SaveChangesAsync();
             return Ok("Job application successful.");
+        }
+
+        public IActionResult CreateJob(int id)
+        {
+            ViewBag.Categories = _context.Categories.ToList();
+            return View();
+        }
+
+        [HttpPost("job/createjob")]
+        public async Task<IActionResult> CreateJob(CreateJobCommand command)
+        {
+            var user = await _userQueries.FindByRefreshToken(HttpContext.Request.Cookies["token"]);
+            var company = _context.Companies.FirstOrDefault(x => x.UserId == user.Id);
+            command.CompanyId = company.Id;
+            ViewBag.Categories = await _context.Categories.ToListAsync();
+            await _jobService.CreateJobPost(command);
+            return RedirectToAction("Index", "Company");
         }
     }
 }

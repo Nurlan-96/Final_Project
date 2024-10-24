@@ -15,4 +15,8 @@
     <ProjectReference Include="..\FinalProject.Infrastructure\FinalProject.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+  </ItemGroup>
+
 </Project>

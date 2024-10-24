@@ -1,0 +1,58 @@
+﻿@using Job.Module.Commands
+@using FinalProject.Domain.Constants
+@model CreateCVJobCommand
+
+<div id="jobFormContainer">
+    <form id="addJobForm" method="post">
+        <!-- Job Title -->
+        <div class="mb-3">
+            <label for="job-title" class="form-label">Job Title</label>
+            <input asp-for="Name" type="text" class="form-control" placeholder="Enter job title">
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+
+        <!-- Company Name -->
+        <div class="mb-3">
+            <label for="company-name" class="form-label">Company Name</label>
+            <input asp-for="CompanyName" type="text" class="form-control" placeholder="Enter company name">
+            <span asp-validation-for="CompanyName" class="text-danger"></span>
+        </div>
+
+        <!-- Start Date -->
+        <div class="mb-3">
+            <label for="start-date" class="form-label">Start Date</label>
+            <input asp-for="StartDate" type="date" class="form-control">
+            <span asp-validation-for="StartDate" class="text-danger"></span>
+        </div>
+
+        <!-- End Date -->
+        <div class="mb-3">
+            <label for="end-date" class="form-label">End Date (Optional)</label>
+            <input asp-for="EndDate" type="date" class="form-control">
+            <span asp-validation-for="EndDate" class="text-danger"></span>
+        </div>
+
+        <!-- Description -->
+        <div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            <textarea asp-for="Description" class="form-control" placeholder="Describe the job"></textarea>
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+
+        <!-- City -->
+        <div class="mb-3">
+            <label for="city" class="form-label">City</label>
+            <select asp-for="City" class="form-select">
+                <option value="">Select your city</option>
+                @foreach (var city in Enum.GetValues(typeof(CityEnum)))
+                {
+                    <option value="@city">@city</option>
+                }
+            </select>
+            <span asp-validation-for="City" class="text-danger"></span>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="button" id="submitJobBtn" class="btn btn-primary w-100">Add Job</button>
+    </form>
+</div>

@@ -1,16 +1,20 @@
-﻿using FinalProject.Domain.Entities;
-using FinalProject.Domain.Reporistories;
-using FinalProject.SharedKernel.Domain.Extensions;
+﻿using Company.Module.Commands;
 using Domain.Exceptions;
+using FinalProject.Domain.Entities;
+using FinalProject.Domain.Reporistories;
+using FinalProject.Infrastructure.DAL;
+using FinalProject.SharedKernel.Domain.Extensions;
+using IdentityModule.Queries;
 using Microsoft.AspNetCore.Http;
-using Company.Module.Commands;
 
 namespace Company.Module.Services
 {
-    public class CompanyService(ICompanyRepository companyRepo, IHttpContextAccessor httpContextAccessor) : ICompanyService
+    public class CompanyService(ICompanyRepository companyRepo, IHttpContextAccessor httpContextAccessor, AppDbContext context, IUserQueries userQueries) : ICompanyService
     {
         private readonly ICompanyRepository _companyRepo = companyRepo;
+        private readonly AppDbContext _context = context;
         private readonly IHttpContextAccessor _contextAccessor = httpContextAccessor;
+        private readonly IUserQueries _userQueries = userQueries;
 
         public async Task<bool> ArchiveCompany(UpdateCompanyCommand command)
         {
@@ -25,8 +29,11 @@ namespace Company.Module.Services
             return true;
         }
 
-        public async Task<bool> CreateCompany(CreateCompanyCommand command)
+        public async Task<bool> CreateCompany(CreateCompanyCommand command, string token)
         {
+            var user = await _userQueries.FindByRefreshToken(token)
+             ?? throw new EntityNotFoundException<UserEntity>();
+
             string folderName = "companies";
             string uploadPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "img", folderName);
             long maxFileSize = 1 * 1024 * 1024;
@@ -58,7 +65,8 @@ namespace Company.Module.Services
                 CreatedDate = DateTime.UtcNow,
                 PhoneNumber = command.PhoneNumber,
                 Email = command.Email,
-                Image = uploadedImageUrl
+                Image = uploadedImageUrl,
+                UserId = user.Id,
             };
 
             await _companyRepo.AddAsync(newCompany);
@@ -118,6 +126,18 @@ namespace Company.Module.Services
             _companyRepo.Update(updatedData);
             await _companyRepo.UnitOfWork.SaveChangesAsync();
             return true;
+        }
+        public IEnumerable<CompanyEntity> SearchCompanies(string query)
+        {
+            if (string.IsNullOrEmpty(query))
+            {
+                return _context.Companies.ToList();
+            }
+
+            return _context.Companies
+                           .Where(co => co.Name.Contains(query, StringComparison.OrdinalIgnoreCase) ||
+                                        co.Description.Contains(query, StringComparison.OrdinalIgnoreCase))
+                           .ToList();
         }
     }
 }

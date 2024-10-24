@@ -11,9 +11,11 @@ namespace FinalProject.Infrastructure.Seed
         {
             if (!builder.Model.GetEntityTypes().Any(e => e.ClrType.Name == "users"))
             {
-                UserEntity user = new();
-                user.Id = 1;
-                user.PhoneNumber = "Test";
+                UserEntity user = new()
+                {
+                    Id = 1,
+                    PhoneNumber = "Test"
+                };
                 user.SetDetails("Alex Mercer", "alex@example.com", "000000");
                 user.SetRole(RoleParameter.SuperAdmin.Id);
                 user.ChangePassword(Crypto.HashPassword("unrealengine2012"));

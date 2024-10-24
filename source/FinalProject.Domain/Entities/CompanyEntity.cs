@@ -11,6 +11,8 @@ namespace FinalProject.Domain.Entities
         public string Email { get; set; }
         public string Address {  get; set; }
         public bool IsDeleted { get; set; }
+        public int UserId { get; set; }
+        public UserEntity User { get; set; }
 
         private readonly List<JobPostEntity> _jobposts;
         public IReadOnlyCollection<JobPostEntity> JobPosts => _jobposts;

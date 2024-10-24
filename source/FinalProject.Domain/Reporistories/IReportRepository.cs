@@ -3,7 +3,7 @@ using SharedKernel.Domain.Seedwork;
 
 namespace FinalProject.Domain.Reporistories
 {
-    public interface IReportRepository:IRepository<Report>
+    public interface IReportRepository:IRepository<ReportEntity>
     {
 
     }

@@ -8,35 +8,44 @@ namespace Infrastructure.Identity
     public class ClaimsManager(IHttpContextAccessor httpContextAccessor) : IClaimsManager
 	{
 		private readonly IHttpContextAccessor _httpContextAccessor = httpContextAccessor;
+        public int? GetCurrentUserId()
+        {
+            var claimValue = GetUserClaim(ClaimTypes.NameIdentifier);
 
-		public int GetCurrentUserId()
-		{
-			var claim = GetUserClaim(ClaimTypes.NameIdentifier);
+            if (claimValue == null) // No claim means no authenticated user or missing claim
+                return null;
 
-			if (!int.TryParse(claim.Value, out var currentUserId))
-				throw new AuthenticationException("Can't parse claim value to required type");
+            if (!int.TryParse(claimValue, out var currentUserId))
+                throw new AuthenticationException("Can't parse claim value to required type");
 
-			return currentUserId;
-		}
+            return currentUserId;
+        }
 
-		public string GetCurrentUserName()
-		{
-			var claim = GetUserClaim(ClaimTypes.Name);
-			return claim.Value;
-		}
+        public string GetCurrentUserName()
+        {
+            var claimValue = GetUserClaim(ClaimTypes.Name);
 
-		public Claim GetUserClaim(string claimType)
-		{
-			ClaimsPrincipal? user = _httpContextAccessor.HttpContext.User;
+            if (claimValue == null)
+                throw new AuthenticationException("User does not have a name claim or is not authenticated");
 
-			if (!user.Identity.IsAuthenticated)
-				throw new AuthenticationException("User is not authenticated");
+            return claimValue;
+        }
 
-			Claim? claim = user.FindFirst(claimType);
-			return claim ?? throw new AuthenticationException("User does not have required claim");
-		}
 
-		public IEnumerable<Claim> GetUserClaims(UserEntity user)
+        public string GetUserClaim(string claimType)
+        {
+            ClaimsPrincipal? user = _httpContextAccessor.HttpContext.User;
+
+            if (!user.Identity.IsAuthenticated)
+                return null;  // Return null if the user is not authenticated
+
+            Claim? claim = user.FindFirst(claimType);
+
+            return claim?.Value;  // Return the claim's value or null if the claim is missing
+        }
+
+
+        public IEnumerable<Claim> GetUserClaims(UserEntity user)
 		{
 			return new List<Claim>
 			{

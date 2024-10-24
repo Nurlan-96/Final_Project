@@ -1,0 +1,8 @@
+﻿@using Job.Module.Commands
+@model CreateCVJobCommand
+
+<div class="added-job-item">
+    <h5>@Model.Name</h5>
+    <p>@Model.CompanyName (@Model.StartDate.ToString("MM/yyyy") - @Model.EndDate?.ToString("MM/yyyy") ?? "Present")</p>
+    <p>@Model.Description</p>
+</div>

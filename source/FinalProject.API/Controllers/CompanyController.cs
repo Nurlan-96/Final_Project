@@ -23,9 +23,9 @@ namespace FinalProject.API.Controllers
             return Ok(await _companyRepository.GetWhere(x => x.Id == id));
         }
         [HttpPost("Create")]
-        public async Task<IActionResult> CreateCompany([FromForm] CreateCompanyCommand command)
+        public async Task<IActionResult> CreateCompany([FromForm] CreateCompanyCommand command, string token)
         {
-            return Ok(await _companyService.CreateCompany(command));
+            return Ok(await _companyService.CreateCompany(command, token));
         }
 
         [HttpPut("Update")]

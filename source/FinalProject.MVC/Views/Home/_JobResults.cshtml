@@ -1,0 +1,9 @@
+﻿@using FinalProject.Domain.Entities
+@model IEnumerable<JobPostEntity>
+
+@foreach (var job in Model)
+{
+    <div class="job-item p-4 mb-4">
+        <h5>@job.Name</h5>
+    </div>
+}

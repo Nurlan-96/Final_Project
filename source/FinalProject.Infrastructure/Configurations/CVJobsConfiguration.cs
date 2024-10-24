@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace FinalProject.Infrastructure.Configurations
 {
-    public class CVJobsConfiguration: IEntityTypeConfiguration<CVJob>
+    public class CVJobsConfiguration: IEntityTypeConfiguration<CVJobEntity>
     {
-        public void Configure(EntityTypeBuilder<CVJob> builder)
+        public void Configure(EntityTypeBuilder<CVJobEntity> builder)
         {
             builder.ToTable("cvjob");
             builder.HasKey(c => c.Id);

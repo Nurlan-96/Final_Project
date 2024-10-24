@@ -1,11 +1,10 @@
 ﻿using FinalProject.SharedKernel.Domain.Seedwork;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query;
 using System.Linq.Expressions;
 
 namespace SharedKernel.Domain.Seedwork
 {
-	public interface IRepository<T> where T : BaseEntity
+    public interface IRepository<T> where T : BaseEntity
 	{
 		IUnitOfWork UnitOfWork { get; }
 		Task<T> AddAsync(T entity);

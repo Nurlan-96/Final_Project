@@ -7,20 +7,22 @@ namespace FinalProject.MVC.Views.Shared.Components.Header
     [ViewComponent(Name = "Header")]
     public class HeaderViewComponent(IUserQueries userQueries) : ViewComponent
     {
-        IUserQueries _userQueries = userQueries;
+        private readonly IUserQueries _userQueries = userQueries;
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            var refreshToken = HttpContext.Request.Cookies["refreshToken"];
+            var refreshToken = HttpContext.Request.Cookies["token"];
+            ViewBag.UserResponse = null;
+
             if (string.IsNullOrEmpty(refreshToken))
             {
-                return View(); // Return the view without user info if there's no refresh token
+                return View();
             }
 
             var user = await _userQueries.FindByRefreshToken(refreshToken);
             if (user == null)
             {
-                return View(); // Return the view without user info if user is not found
+                return View();
             }
 
             var userResponse = new UserResponse
@@ -28,10 +30,11 @@ namespace FinalProject.MVC.Views.Shared.Components.Header
                 PhoneNumber = user.PhoneNumber,
                 Email = user.Email,
                 Id = user.Id,
-                Fullname = user.Fullname // Assign FullName from the retrieved user
+                Fullname = user.Fullname
             };
+            ViewBag.UserResponse = userResponse;
 
-            return View(userResponse);
+            return View();
         }
     }
 }

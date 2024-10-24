@@ -13,7 +13,7 @@ namespace FinalProject.Infrastructure.Configurations
 
             builder.Property(c => c.Fullname).IsRequired().HasMaxLength(60).HasColumnName("name");
 
-            builder.Property(c=>c.Email).IsRequired().HasColumnName("email");
+            builder.Property(c=>c.Email).IsRequired().HasMaxLength(50).HasColumnName("email");
             builder.HasIndex(c => c.Email).IsUnique();
 
             builder.Property(c => c.PasswordHash).IsRequired().HasColumnName("password");

@@ -1,13 +1,16 @@
 ﻿using Domain.Exceptions;
 using FinalProject.Domain.Entities;
 using FinalProject.Domain.Reporistories;
+using FinalProject.Infrastructure.DAL;
 using Job.Module.Commands;
+using Microsoft.EntityFrameworkCore;
 
 namespace Job.Module.Service
 {
-    public class CategoryService(ICategoryRepository categoryRepo) : ICategoryService
+    public class CategoryService(ICategoryRepository categoryRepo, AppDbContext context) : ICategoryService
     {
         private readonly ICategoryRepository _categoryRepo = categoryRepo;
+        private readonly AppDbContext _context = context;
 
         public async Task<bool> CreateCategory(CreateCategoryCommand command)
         {
@@ -38,6 +41,17 @@ namespace Job.Module.Service
             _categoryRepo.Update(data);
             await _categoryRepo.UnitOfWork.SaveChangesAsync();
             return true;
+        }
+        public IEnumerable<CategoryEntity> SearchCategories(string query)
+        {
+            if (string.IsNullOrEmpty(query))
+            {
+                return _context.Categories.ToList();
+            }
+
+            return _context.Categories
+                           .Where(c => c.Name.Contains(query, StringComparison.OrdinalIgnoreCase))
+                           .ToList();
         }
     }
 }

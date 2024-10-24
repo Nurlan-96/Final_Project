@@ -18,7 +18,7 @@ namespace IdentityModule.Queries
 		/// </summary>
 		/// <param name="Id"></param>
 		/// <returns></returns>
-		Task<UserEntity> FindAsync(int Id);
+		Task<UserEntity> FindAsync(int? Id);
 		Task<UserEntity> FindByRefreshToken(string refreshToken);
 		Task<UserResponse> GetUserResponseAsync(int? userId);
 	}

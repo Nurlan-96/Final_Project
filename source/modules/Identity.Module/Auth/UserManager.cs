@@ -51,11 +51,11 @@ namespace IdentityModule.Auth
 
 		public Task<UserEntity> GetCurrentUser()
 		{
-			int currentUserId = GetCurrentUserId();
+			int? currentUserId = GetCurrentUserId();
 			return _userQueries.FindAsync(currentUserId);
 		}
 
-		public int GetCurrentUserId()
+		public int? GetCurrentUserId()
 		{
 			return _claimsManager.GetCurrentUserId();
 		}

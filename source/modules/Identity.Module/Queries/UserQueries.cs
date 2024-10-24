@@ -13,7 +13,7 @@ namespace IdentityModule.Queries
 		private readonly AppDbContext _context = context;
 		private readonly IMapper _mapper = mapper;
 
-		public async Task<UserEntity> FindAsync(int Id)
+		public async Task<UserEntity> FindAsync(int? Id)
 		{
 			return await _context
 				.Users

@@ -11,6 +11,7 @@ namespace IdentityModule.Profiles
         {
             CreateMap<UserEntity, UserResponse>();
             CreateMap<Role, RoleResponse>();
+            CreateMap<RoleResponse, Role>();
         }
     }
 }

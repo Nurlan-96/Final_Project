@@ -1,7 +1,6 @@
 ﻿using FinalProject.Domain.Reporistories;
 using Job.Module.Commands;
 using Job.Module.Service;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FinalProject.API.Controllers
@@ -14,7 +13,7 @@ namespace FinalProject.API.Controllers
         private readonly IReportService _reportService = reportService;
 
         [HttpPost("Create")]
-        public async Task<IActionResult> CreateCompany([FromForm] CreateReportCommand command)
+        public async Task<IActionResult> CreateReport([FromForm] CreateReportCommand command)
         {
             return Ok(await _reportService.CreateReport(command));
         }

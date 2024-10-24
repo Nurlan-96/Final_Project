@@ -2,14 +2,12 @@
 using FinalProject.Domain.Entities;
 using FinalProject.Domain.Reporistories;
 using Job.Module.Commands;
-using Microsoft.AspNetCore.Http;
 
 namespace Job.Module.Service
 {
     public class ReportService(IReportRepository reportRepo) : IReportService
     {
         private readonly IReportRepository _reportRepo = reportRepo;
-
         public async Task<bool> ArchiveReport(UpdateReportCommand command)
         {
             var data = await _reportRepo.GetWhere(x => x.Id == command.ReportId)
@@ -25,7 +23,7 @@ namespace Job.Module.Service
 
         public async Task<bool> CreateReport(CreateReportCommand command)
         {
-            Report newReport = new()
+            ReportEntity newReport = new()
             {
                 Reason = command.Reason,
                 UserId = command.UserId,
@@ -41,13 +39,12 @@ namespace Job.Module.Service
         public async Task<bool> DeleteReport(int reportId)
         {
             var data = await _reportRepo.GetWhere(x => x.Id == reportId)
-            ?? throw new EntityNotFoundException<Report>();
+            ?? throw new EntityNotFoundException<ReportEntity>();
 
             _reportRepo.Delete(data);
             await _reportRepo.UnitOfWork.SaveChangesAsync();
             return true;
         }
-
     }
 }
 

@@ -4,7 +4,6 @@ using Domain.Exceptions;
 using FinalProject.Domain.Entities;
 using FinalProject.Domain.Reporistories;
 using Job.Module.Responses;
-using Microsoft.EntityFrameworkCore;
 
 namespace Job.Module.Queries
 {

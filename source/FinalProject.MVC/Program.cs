@@ -1,3 +1,4 @@
+using Company.Module.Services;
 using EmailModule.Manager;
 using FinalProject.Application.Usecase;
 using FinalProject.Domain.Reporistories;
@@ -9,6 +10,7 @@ using IdentityModule.Queries;
 using Infrastructure.Identity;
 using Job.Module;
 using Job.Module.Queries;
+using Job.Module.Service;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using User.Module.Services;
@@ -23,15 +25,26 @@ builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 #region User/Authorization
 builder.Services.AddScoped<IUserManager, UserManager>();
 builder.Services.AddScoped<IUserService, UserService>();
-builder.Services.AddScoped<IEmailManager, EmailManager>();
-builder.Services.AddScoped<IJobRepository, JobRepository>();
-builder.Services.AddScoped<IJobQuery, JobQuery>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserQueries, UserQueries>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IClaimsManager, ClaimsManager>();
 builder.Services.AddScoped<IAuthorizationService, AuthorizationService>();
 #endregion
+builder.Services.AddScoped<ICompanyService, CompanyService>();
+builder.Services.AddScoped<ICompanyRepository, CompanyRepository>();
+builder.Services.AddScoped<ICategoryService, CategoryService>();
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<IJobQuery, JobQuery>();
+builder.Services.AddScoped<ICVQuery, CVQuery>();
+builder.Services.AddScoped<ICVJobQuery, CVJobQuery>();
+builder.Services.AddScoped<IJobService, JobService>();
+builder.Services.AddScoped<ICVService, CVService>();
+builder.Services.AddScoped<ICVJobService, CVJobService>();
+builder.Services.AddScoped<ICVRepository, CVRepository>();
+builder.Services.AddScoped<ICVJobRepository, CVJobRepository>();
+builder.Services.AddScoped<IEmailManager, EmailManager>();
+builder.Services.AddScoped<IJobRepository, JobRepository>();
 foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
 {
     builder.Services.AddAutoMapper(assembly);
@@ -79,8 +92,19 @@ app.UseRouting();
 
 app.UseAuthorization();
 
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+app.UseEndpoints(endpoints =>
+{
+    // Area route
+    endpoints.MapControllerRoute(
+        name: "admin",
+        pattern: "{area:exists}/{controller=Dash}/{action=Index}/{id?}"
+    );
+
+    // Default route
+    endpoints.MapControllerRoute(
+        name: "default",
+        pattern: "{controller=Home}/{action=Index}/{id?}");
+});
+
 
 app.Run();

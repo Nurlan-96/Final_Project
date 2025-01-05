@@ -31,7 +31,6 @@
                     <div class="mb-3">
                         <a asp-action="update" asp-controller="company" asp-route-id="@Model.Id" class="btn btn-secondary">Update Your Company</a>
                     </div>
-                    <!-- Additional Company Details (if needed) -->
                 </div>
             </div>
             <div class="card">
@@ -39,30 +38,37 @@
                 <a asp-controller="job" asp-action="createjob" class="btn btn-secondary">Create a vacancy</a>
                 <div class="tab-class text-center">
                     <div class="tab-content">
-                        @foreach (var post in Model.JobPosts)
+                        @if (ViewBag.Jobs == null)
                         {
-                            <div class="tab-pane fade show p-0 active">
-                                <div class="job-item p-4 mb-4">
-                                    <div class="row g-4">
-                                        <div class="col-sm-12 col-md-8 d-flex align-items-center">
-                                            <img class="flex-shrink-0 img-fluid border rounded" src="@Model.Image" alt="" style="width: 80px; height: 80px;">
-                                            <div class="text-start ps-4">
-                                                <h5 class="mb-3">@post.Name</h5>
-                                                <span class="text-truncate me-3"><i class="fa fa-map-marker-alt text-primary me-2"></i>@post.City</span>
-                                                <span class="text-truncate me-3"><i class="far fa-clock text-primary me-2"></i>@post.EmploymentType</span>
-                                                <span class="text-truncate me-0"><i class="far fa-money-bill-alt text-primary me-2"></i>$@post.Salary</span>
+                            <p>You have not posted any vacancies yet.</p>
+                        }
+                        else
+                        {
+                            foreach (var post in ViewBag.Jobs)
+                            {
+                                <div class="tab-pane fade show p-0 active">
+                                    <div class="job-item p-4 mb-4">
+                                        <div class="row g-4">
+                                            <div class="col-sm-12 col-md-8 d-flex align-items-center">
+                                                <img class="flex-shrink-0 img-fluid border rounded" src="@Model.Image" alt="" style="width: 80px; height: 80px;">
+                                                <div class="text-start ps-4">
+                                                    <h5 class="mb-3">@post.Name</h5>
+                                                    <span class="text-truncate me-3"><i class="fa fa-map-marker-alt text-primary me-2"></i>@post.City</span>
+                                                    <span class="text-truncate me-3"><i class="far fa-clock text-primary me-2"></i>@post.EmploymentType</span>
+                                                    <span class="text-truncate me-0"><i class="far fa-money-bill-alt text-primary me-2"></i>$@post.Salary</span>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="col-sm-12 col-md-4 d-flex flex-column align-items-start align-items-md-end justify-content-center">
-                                            <div class="d-flex mb-3">
-                                                <a class="btn btn-light btn-square me-3" href=""><i class="far fa-heart text-primary"></i></a>
-                                                <a class="btn btn-primary" asp-action="apply" asp-controller="job" asp-route-id="@post.Id">Apply Now</a>
+                                            <div class="col-sm-12 col-md-4 d-flex flex-column align-items-start align-items-md-end justify-content-center">
+                                                <div class="d-flex mb-3">
+                                                    <a class="btn btn-light btn-square me-3" href=""><i class="far fa-heart text-primary"></i></a>
+                                                    <a class="btn btn-primary" asp-action="apply" asp-controller="job" asp-route-id="@post.Id">Apply Now</a>
+                                                </div>
+                                                <small class="text-truncate"><i class="far fa-calendar-alt text-primary me-2"></i>@post.ExpirationDate.ToString("dd.MMM.yyyy")</small>
                                             </div>
-                                            <small class="text-truncate"><i class="far fa-calendar-alt text-primary me-2"></i>@post.ExpirationDate.ToString("dd.MMM.yyyy")</small>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            }
                         }
                     </div>
                 </div>

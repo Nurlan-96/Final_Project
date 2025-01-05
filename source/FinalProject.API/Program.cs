@@ -60,11 +60,7 @@ builder.Services.AddScoped<IAuthorizationService, AuthorizationService>();
 #endregion
 builder.Services.AddTransient<GlobalExceptionHandler>();
 
-foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
-{
-    builder.Services.AddAutoMapper(assembly);
-    builder.Services.AddValidatorsFromAssembly(assembly);
-}
+
 #endregion
 
 #region SeriLog

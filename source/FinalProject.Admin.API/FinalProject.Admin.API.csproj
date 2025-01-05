@@ -11,6 +11,10 @@
   <ItemGroup>
     <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.8" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.8">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.21.0" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.4" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL.Design" Version="1.1.0" />
@@ -24,6 +28,7 @@
   <ItemGroup>
     <ProjectReference Include="..\FinalProject.Application\FinalProject.Application.csproj" />
     <ProjectReference Include="..\FinalProject.Domain\FinalProject.Domain.csproj" />
+    <ProjectReference Include="..\FinalProject.Infrastructure.Migrations\FinalProject.Infrastructure.Migrations.csproj" />
     <ProjectReference Include="..\modules\Company.Module\Company.Module.csproj" />
     <ProjectReference Include="..\modules\Email.Module\Email.Module.csproj" />
     <ProjectReference Include="..\modules\Identity.Module\Identity.Module.csproj" />

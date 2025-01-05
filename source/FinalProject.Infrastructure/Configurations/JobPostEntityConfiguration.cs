@@ -11,6 +11,7 @@ namespace FinalProject.Infrastructure.Configurations
         {
             builder.ToTable("jobpost");
             builder.HasKey(c => c.Id);
+            builder.Property(c => c.Id).ValueGeneratedOnAdd();
 
             builder.Property(c => c.Name).HasMaxLength(50).HasColumnName("name");
             builder.Property(c => c.Education).HasColumnName("education");

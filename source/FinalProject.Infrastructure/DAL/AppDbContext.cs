@@ -27,6 +27,13 @@ namespace FinalProject.Infrastructure.DAL
             SeedAdmin.SeedData(modelBuilder);
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<JobPostEntity>()
+         .Property(j => j.Requirements)
+         .HasConversion(
+             v => string.Join(";", v),
+             v => v.Split(';', StringSplitOptions.RemoveEmptyEntries).ToList()
+         );
         }
 
         public Task<bool> SaveEntitiesAsync(CancellationToken cancellationToken = default)

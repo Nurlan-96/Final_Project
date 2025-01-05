@@ -1,5 +1,4 @@
-﻿using Domain.Exceptions;
-using FinalProject.Domain.Entities;
+﻿using FinalProject.Domain.Entities;
 using FinalProject.Domain.Reporistories;
 using FinalProject.Infrastructure.DAL;
 using Identity.Module.Auth;

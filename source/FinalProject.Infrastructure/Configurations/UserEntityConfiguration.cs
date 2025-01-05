@@ -10,6 +10,7 @@ namespace FinalProject.Infrastructure.Configurations
         {
             builder.ToTable("user");
             builder.HasKey(c => c.Id);
+            builder.Property(c => c.Id).ValueGeneratedOnAdd();
 
             builder.Property(c => c.Fullname).IsRequired().HasMaxLength(60).HasColumnName("name");
 

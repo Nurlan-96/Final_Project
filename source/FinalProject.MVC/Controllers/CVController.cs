@@ -60,7 +60,6 @@ namespace FinalProject.MVC.Controllers
         public IActionResult CreateCVJob(CreateCVJobCommand command)
         {
             var token = HttpContext.Request.Cookies["token"];
-
             _cvJobService.CreateCVJob(command, token);
             return RedirectToAction("Index", "CV");
         }

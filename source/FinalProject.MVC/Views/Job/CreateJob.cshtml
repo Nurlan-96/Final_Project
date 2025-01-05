@@ -28,7 +28,13 @@
                         <!-- Job Requirements -->
                         <div class="mb-3">
                             <label for="requirements" class="form-label">Requirements</label>
-                            <textarea asp-for="Requirements" class="form-control" placeholder="Enter job requirements"></textarea>
+                            <div id="requirements-container">
+                                <div class="input-group mb-2">
+                                    <input type="text" name="Requirements" class="form-control" placeholder="Enter a requirement">
+                                    <button type="button" class="btn btn-danger remove-requirement" style="display: none;">-</button>
+                                </div>
+                            </div>
+                            <button type="button" class="btn btn-secondary mt-2" id="add-requirement">Add Requirement</button>
                             <span asp-validation-for="Requirements" class="text-danger"></span>
                         </div>
 
@@ -116,8 +122,6 @@
                                 }
                             </select>
                             <span asp-validation-for="City" class="text-danger"></span>
-                        </div>
-                        <input type="hidden" asp-for="CompanyId" />
                         <!-- Submit Button -->
                         <button type="submit" class="btn btn-primary w-100">Submit Job Post</button>
                     </form>
@@ -126,3 +130,32 @@
         </div>
     </div>
 </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const requirementsContainer = document.getElementById("requirements-container");
+        const addRequirementButton = document.getElementById("add-requirement");
+
+        addRequirementButton.addEventListener("click", () => {
+            const newRequirement = document.createElement("div");
+            newRequirement.classList.add("input-group", "mb-2");
+            newRequirement.innerHTML = `
+                <input type="text" name="Requirements" class="form-control" placeholder="Enter a requirement">
+                <button type="button" class="btn btn-danger remove-requirement">-</button>
+            `;
+            requirementsContainer.appendChild(newRequirement);
+
+            const removeButton = newRequirement.querySelector(".remove-requirement");
+            removeButton.style.display = "inline";
+            removeButton.addEventListener("click", () => {
+                newRequirement.remove();
+            });
+        });
+
+        document.querySelectorAll(".remove-requirement").forEach((button) => {
+            button.addEventListener("click", function () {
+                this.parentElement.remove();
+            });
+        });
+    });
+</script>

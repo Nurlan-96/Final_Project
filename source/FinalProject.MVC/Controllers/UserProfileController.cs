@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
-using FinalProject.Domain.Entities.RoleAggregate;
+using FinalProject.Domain.Constants;
+using FinalProject.Domain.Reporistories;
 using FinalProject.MVC.ViewModels;
 using IdentityModule.Queries;
 using IdentityModule.Response;
@@ -9,11 +10,12 @@ using User.Module.Services;
 
 namespace FinalProject.MVC.Controllers
 {
-    public class UserProfileController(IUserQueries userQuery, IUserService userService, IMapper mapper) : Controller
+    public class UserProfileController(IUserQueries userQuery, IUserService userService, IMapper mapper, ICompanyRepository companyRepository) : Controller
     {
         private readonly IUserQueries _userQuery = userQuery;
         private readonly IUserService _userService = userService;
         private readonly IMapper _mapper = mapper;
+        private readonly ICompanyRepository _companyRepository = companyRepository;
 
         public async Task<IActionResult> Index()
         {
@@ -30,9 +32,14 @@ namespace FinalProject.MVC.Controllers
                 return RedirectToAction("login", "authentication");
             }
 
+            var companies = await _companyRepository.GetAllAsync();
+            var cities = Enum.GetValues(typeof(CityEnum)).Cast<CityEnum>();
+
             var data = new HomeVM
             {
-                User = new()
+                User = _mapper.Map<UserResponse>(user),
+                Companies = companies,
+                Cities = cities
             };
 
             data.User = _mapper.Map<UserResponse>(user);

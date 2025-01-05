@@ -10,9 +10,12 @@ namespace FinalProject.Infrastructure.Configurations
         {
             builder.ToTable("company");
             builder.HasKey(c => c.Id);
+            builder.Property(c => c.Id).ValueGeneratedOnAdd();
+
 
             builder.Property(c => c.Name).HasMaxLength(50).HasColumnName("name");
             builder.HasIndex(c => c.Name).IsUnique();
+
 
             builder.Property(c=>c.Description).HasMaxLength(500).HasColumnName("description");
             builder.Property(c=>c.Address).HasMaxLength(50).HasColumnName("address");

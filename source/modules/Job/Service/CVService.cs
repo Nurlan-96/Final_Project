@@ -8,11 +8,12 @@ using Newtonsoft.Json.Linq;
 
 namespace Job.Module.Service
 {
-    public class CVService(AppDbContext context, ICVRepository jobRepo, IUserQueries userQueries) : ICVService
+    public class CVService(AppDbContext context, ICVRepository jobRepo, IUserQueries userQueries, IUserRepository userRepository) : ICVService
     {
         private readonly AppDbContext _context = context;
         private readonly ICVRepository _cvRepo = jobRepo;
         private readonly IUserQueries _userQueries = userQueries;
+        private readonly IUserRepository _userRepository = userRepository;
         public async Task<bool> CreateCV(CreateCVCommand command, string token)
         {
             var user = await _userQueries.FindByRefreshToken(token)
@@ -31,12 +32,15 @@ namespace Job.Module.Service
                 Experience = command.Experience,
                 CreatedDate = DateTime.UtcNow,
             };
+            newCV.UserId = user.Id;
             await _cvRepo.AddAsync(newCV);
             await _cvRepo.UnitOfWork.SaveChangesAsync();
 
+            user.CVEntityId = newCV.Id;
+            _userRepository.Update(user);
+            await _userRepository.UnitOfWork.SaveChangesAsync();
             return true;
         }
-
 
         public async Task<bool> UpdateCV(UpdateCVCommand command)
         {

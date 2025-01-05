@@ -1,9 +1,6 @@
 ﻿using FinalProject.Domain.Reporistories;
 using FinalProject.Infrastructure.DAL;
-using Job.Module.Commands;
-using Job.Module.Service;
 using Microsoft.AspNetCore.Mvc;
-using User.Module.Commands;
 using User.Module.Services;
 
 namespace FinalProject.MVC.Areas.Admin.Controllers

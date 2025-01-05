@@ -1,15 +1,12 @@
 using Company.Module.Services;
-using FinalProject.Application.Attributes;
 using FinalProject.Domain.Constants;
 using FinalProject.Domain.Entities;
 using FinalProject.Infrastructure.DAL;
 using FinalProject.MVC.ViewModels;
-using Identity.Module.Auth;
 using IdentityModule.Queries;
 using Job.Module.Service;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace FinalProject.MVC.Controllers
 {
@@ -116,7 +113,7 @@ namespace FinalProject.MVC.Controllers
         private IActionResult ForceLogOut()
         {
             Response.Cookies.Delete("token");
-            return RedirectToAction("login", "admin"); //was login admin
+            return RedirectToAction("login", "admin");
         }
     } 
 }

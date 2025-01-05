@@ -7,7 +7,7 @@ namespace FinalProject.Domain.Entities
     {
         public string Name { get; set; }
         public string Description { get; set; }
-        public string Requirements { get; set; }
+        public List<string> Requirements { get; set; } = new List<string>();
         public string Address { get; set; }
         public int Salary { get; set; }
         public int CompanyId { get; set; }

@@ -4,16 +4,17 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace FinalProject.Infrastructure.Configurations
 {
-    public class ReportEntityConfiguration : IEntityTypeConfiguration<ReportEntity>
+    public class CategoryEntityConfiguration : IEntityTypeConfiguration<CategoryEntity>
     {
-        public void Configure(EntityTypeBuilder<ReportEntity> builder)
+        public void Configure(EntityTypeBuilder<CategoryEntity> builder)
         {
-            builder.ToTable("report");
+            builder.ToTable("category");
             builder.HasKey(c => c.Id);
 
-            builder.Property(c => c.Reason).HasMaxLength(500).HasColumnName("reason").IsRequired();
-            builder.Property(c => c.JobPostId).HasColumnName("job_post_id").IsRequired();
-            builder.Property(c => c.UserId).HasColumnName("user_id").IsRequired();
+            builder.Property(c => c.Name).HasMaxLength(50).HasColumnName("name");
+            builder.HasIndex(c => c.Name).IsUnique();
+
+            builder.Property(c => c.Icon).HasColumnName("icon");
             builder.Property(c => c.CreatedDate).HasColumnName("created_date");
             builder.Property(c => c.UpdatedDate).HasColumnName("update_date");
         }

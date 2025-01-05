@@ -20,11 +20,11 @@
                                 <p><strong>Number:</strong> @Model.User.PhoneNumber</p>
                                 <p><strong>Member Since:</strong> @Model.User.CreatedDate</p>
                             <a asp-action="edituser" asp-controller="userprofile" class="btn btn-secondary">Edit Profile</a>
-                            <a asp-action="index" asp-controller="cv" class="btn btn-secondary @(Model.User.CVEntityId != null ? "" : "hidden")">Go to your CV</a>
-                            <a asp-action="create" asp-controller="cv" class="btn btn-secondary @(Model.User.CVEntityId == null ? "" : "hidden")">Create CV</a>
-                            <a asp-action="index" asp-controller="company" class="btn btn-primary @(Model.User.CompanyId != null ? "" : "hidden")">Go to your Company</a>
-                            <a asp-action="create" asp-controller="company" class="btn btn-primary @(Model.User.CompanyId == null ? "" : "hidden")">Create Company</a>
-                            <a asp-action="index" asp-controller="dash" asp-area="Admin" class="btn btn-primary @(Model.User.Role.Name == "SuperAdmin" ? "" : "hidden")">Go to Admin Page</a>
+                            <a asp-action="index" asp-controller="cv" class="btn btn-secondary @(Model.User.CVEntityId != null ? "" : "d-none")">Go to your CV</a>
+                            <a asp-action="create" asp-controller="cv" class="btn btn-secondary @(Model.User.CVEntityId == null ? "" : "d-none")">Create CV</a>
+                            <a asp-action="index" asp-controller="company" class="btn btn-primary @(Model.Companies?.FirstOrDefault(c=>c.UserId==Model.User.Id) != null ? "" : "d-none")">Go to @Model.Companies?.FirstOrDefault(c => c.UserId == Model.User.Id).??Name</a>
+                            <a asp-action="create" asp-controller="company" class="btn btn-primary @(Model.Companies?.FirstOrDefault(c=>c.UserId==Model.User.Id) == null ? "" : "d-none")">Create a Company</a>
+                            <a asp-action="index" asp-controller="dash" asp-area="Admin" class="btn btn-primary @(Model.User.Role.Id == 1 ? "" : "d-none")">Go to Admin Page</a>
                         </div>
                         </div>
                     </div>
@@ -35,25 +35,8 @@
         <!-- Job Listing Section -->
         <div class="container-xxl py-5">
             <div class="container">
-                <h1 class="text-center mb-5">Applied / Recommended Jobs</h1>
+                <h1 class="text-center mb-5">Applied Jobs</h1>
                 <div class="tab-class text-center">
-                    <ul class="nav nav-pills d-inline-flex justify-content-center border-bottom mb-5">
-                        <li class="nav-item">
-                            <a class="d-flex align-items-center text-start mx-3 ms-0 pb-3 active" data-bs-toggle="pill" href="#tab-1">
-                                <h6 class="mt-n1 mb-0">Featured</h6>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="d-flex align-items-center text-start mx-3 pb-3" data-bs-toggle="pill" href="#tab-2">
-                                <h6 class="mt-n1 mb-0">Full Time</h6>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="d-flex align-items-center text-start mx-3 me-0 pb-3" data-bs-toggle="pill" href="#tab-3">
-                                <h6 class="mt-n1 mb-0">Part Time</h6>
-                            </a>
-                        </li>
-                    </ul>
                     <div class="tab-content">
                         <div id="tab-1" class="tab-pane fade show p-0 active">
                             <div class="job-item p-4 mb-4">

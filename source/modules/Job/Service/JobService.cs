@@ -1,12 +1,9 @@
 ﻿using Domain.Exceptions;
-using FinalProject.Application.Usecase;
 using FinalProject.Domain.Entities;
 using FinalProject.Domain.Reporistories;
 using FinalProject.Infrastructure.DAL;
 using IdentityModule.Queries;
 using Job.Module.Commands;
-using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json.Linq;
 
 namespace Job.Module.Service
 {

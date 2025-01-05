@@ -76,7 +76,7 @@ namespace FinalProject.MVC.Controllers
             }
             _context.SaveChanges();
             Response.Cookies.Delete("token");
-            return RedirectToAction("login", "admin");
+            return RedirectToAction("index", "login");
         }
 
 
